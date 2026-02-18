@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import PhilosopherAvatar from './PhilosopherAvatar';
 import { eras } from '@/data/eras';
@@ -47,7 +49,7 @@ export default function PhilosopherCard({ philosopher }: Props) {
             {philosopher.name}
           </h3>
           <p className="text-sm mb-2" style={{ color: '#78909c' }}>
-            {formatYear(philosopher.birth)} – {formatYear(philosopher.death)}
+            {formatYear(philosopher.birth)} â {formatYear(philosopher.death)}
           </p>
           <p
             className="text-base leading-relaxed line-clamp-2"
