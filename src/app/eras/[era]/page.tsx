@@ -74,15 +74,23 @@ export default function EraPage({ params }: { params: { era: string } }) {
         {essay && (
           <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
             <div className="rounded-2xl p-6 sm:p-8" style={{ background: 'rgba(26,21,16,0.6)', border: '1px solid rgba(192,161,114,0.1)' }}>
-              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
+              <h2 className="text-xl sm:text-2xl font-bold mb-6" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
                 {essay.title}
               </h2>
-              <p className="text-sm mb-4" style={{ color: '#78909c' }}>{essay.subtitle}</p>
-              <div className="space-y-4">
-                {essay.body.split('\n\n').map((para, i) => (
-                  <p key={i} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
-                    {para}
-                  </p>
+              <div className="space-y-6">
+                {essay.sections.map((section, i) => (
+                  <div key={i}>
+                    <h3 className="text-lg font-semibold mb-2" style={{ color: '#c0a172', fontFamily: "var(--font-playfair), serif" }}>
+                      {section.heading}
+                    </h3>
+                    <div className="space-y-3">
+                      {section.text.split('\n\n').map((para, j) => (
+                        <p key={j} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -109,7 +117,7 @@ export default function EraPage({ params }: { params: { era: string } }) {
                     {era.id} Philosophy Companion Guide
                   </p>
                   <p className="text-sm mt-0.5" style={{ color: '#b0a090' }}>
-                    Reading lists, key terms, journal prompts · {guide.pages} pg · {guide.price}
+                    Reading lists, key terms, journal prompts Â· {guide.pages} pg Â· {guide.price}
                   </p>
                 </div>
                 <div className="flex-shrink-0 hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold"
