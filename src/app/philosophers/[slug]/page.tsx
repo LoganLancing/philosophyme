@@ -63,7 +63,7 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-16">
         {/* JSON-LD */}
         <script
           type="application/ld+json"
@@ -201,7 +201,7 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
               href={guide.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-xl overflow-hidden transition-all duration-300"
+              className="block rounded-xl overflow-hidden transition-all duration-300 guide-card-hover"
               style={{
                 background: 'rgba(192,161,114,0.04)',
                 border: '1px solid rgba(192,161,114,0.12)',

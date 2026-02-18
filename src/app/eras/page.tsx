@@ -14,7 +14,7 @@ export default function ErasPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <main className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-10">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
             Six Eras of Philosophy
@@ -30,7 +30,7 @@ export default function ErasPage() {
               <Link
                 key={era.id}
                 href={`/eras/${era.id.toLowerCase()}/`}
-                className="block rounded-2xl p-6 sm:p-8 transition-all duration-300"
+                className="block rounded-2xl p-6 sm:p-8 transition-all duration-300 card-hover"
                 style={{ background: 'rgba(26,21,16,0.6)', border: '1px solid rgba(192,161,114,0.1)', textDecoration: 'none' }}
               >
                 <div className="flex items-center gap-3 mb-3">

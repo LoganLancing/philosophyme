@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import HomeClient from '@/components/HomeClient';
+import EmailCapture from '@/components/EmailCapture';
 import { guides } from '@/data/guides';
 import { eras } from '@/data/eras';
 import { BookOpen, ShoppingBag, ExternalLink, Star, Download } from 'lucide-react';
@@ -19,7 +19,7 @@ export default function GuidesPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <main className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-10">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
             Companion Study Guides
@@ -35,7 +35,7 @@ export default function GuidesPage() {
             href={collection.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block rounded-2xl p-6 sm:p-8 mb-10 transition-all duration-300"
+            className="block rounded-2xl p-6 sm:p-8 mb-10 transition-all duration-300 guide-card-hover"
             style={{
               background: 'linear-gradient(135deg, rgba(192,161,114,0.08) 0%, rgba(192,161,114,0.02) 100%)',
               border: '1px solid rgba(192,161,114,0.2)',
@@ -84,7 +84,7 @@ export default function GuidesPage() {
                 href={g.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-xl overflow-hidden transition-all duration-300"
+                className="block rounded-xl overflow-hidden transition-all duration-300 guide-card-hover"
                 style={{ background: 'rgba(26,21,16,0.6)', border: '1px solid rgba(192,161,114,0.1)', textDecoration: 'none' }}
               >
                 <div style={{ height: 3, background: `linear-gradient(90deg, ${color}, ${color}60)` }} />
@@ -106,6 +106,8 @@ export default function GuidesPage() {
           })}
         </div>
 
+        <div className="max-w-5xl mx-auto"><div className="gold-line mb-8" /></div>
+
         {/* Thought Experiments */}
         {specialGuides.filter((g) => g.id !== 'complete-collection').map((g) => (
           <a
@@ -113,7 +115,7 @@ export default function GuidesPage() {
             href={g.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block rounded-xl p-6 mb-8 transition-all duration-300"
+            className="block rounded-xl p-6 mb-8 transition-all duration-300 guide-card-hover"
             style={{ background: 'rgba(26,21,16,0.6)', border: '1px solid rgba(192,161,114,0.1)', textDecoration: 'none' }}
           >
             <div className="flex items-center gap-4">
@@ -137,7 +139,7 @@ export default function GuidesPage() {
 
         {/* Email capture */}
         <div className="mt-8">
-          <HomeClient />
+          <EmailCapture variant="guides" />
         </div>
       </main>
       <Footer />

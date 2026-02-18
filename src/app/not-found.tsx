@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <main className="min-h-screen flex items-center justify-center px-6">
+      <main className="min-h-screen pt-16 flex items-center justify-center px-6">
         <div className="text-center">
           <h1
             className="text-6xl font-bold mb-4"

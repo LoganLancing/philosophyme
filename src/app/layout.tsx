@@ -58,6 +58,8 @@ export const metadata: Metadata = {
   },
 };
 
+import ScrollToTop from '@/components/ScrollToTop';
+
 export default function RootLayout({
   children,
 }: {
@@ -73,6 +75,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen antialiased" style={{ backgroundColor: '#0d0b08' }}>
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );

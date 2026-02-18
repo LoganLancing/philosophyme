@@ -36,7 +36,7 @@ export default function BranchPage({ params }: { params: { branch: string } }) {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
           <Link href="/branches/" className="inline-flex items-center gap-1.5 text-sm" style={{ color: '#78909c', textDecoration: 'none' }}>
             <ArrowLeft size={14} /> Branches & Schools
@@ -60,15 +60,15 @@ export default function BranchPage({ params }: { params: { branch: string } }) {
               <h2 className="text-xl sm:text-2xl font-bold mb-6" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
                 {essay.title}
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {essay.sections.map((section, i) => (
                   <div key={i}>
-                    <h3 className="text-lg font-semibold mb-2" style={{ color: '#c0a172', fontFamily: "var(--font-playfair), serif" }}>
+                    <h3 className="text-lg font-semibold mb-3" style={{ color: '#c0a172', fontFamily: "var(--font-playfair), serif" }}>
                       {section.heading}
                     </h3>
-                    <div className="space-y-3">
-                      {section.text.split('\n\n').map((para, j) => (
-                        <p key={j} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
+                    <div className="space-y-4">
+                      {section.text.split('\n\n').map((para, pi) => (
+                        <p key={pi} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
                           {para}
                         </p>
                       ))}

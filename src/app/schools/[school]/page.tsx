@@ -34,7 +34,7 @@ export default function SchoolPage({ params }: { params: { school: string } }) {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
           <Link href="/branches/" className="inline-flex items-center gap-1.5 text-sm" style={{ color: '#78909c', textDecoration: 'none' }}>
             <ArrowLeft size={14} /> Branches & Schools

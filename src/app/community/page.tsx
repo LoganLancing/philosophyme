@@ -12,7 +12,7 @@ export default function CommunityPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen max-w-4xl mx-auto px-4 sm:px-6 py-10">
+      <main className="min-h-screen max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-10">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
             Community

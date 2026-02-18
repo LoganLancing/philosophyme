@@ -64,14 +64,9 @@ export interface EraEssay {
   sections: EssaySection[];
 }
 
-export interface BranchEssaySection {
-  heading: string;
-  text: string;
-}
-
 export interface BranchEssay {
   title: string;
-  sections: BranchEssaySection[];
+  sections: EssaySection[];
 }
 
 export interface DailyQuote {

@@ -10,6 +10,7 @@ import { getPhilosophersByEra } from '@/data/philosophers';
 import { getGuideByEra } from '@/data/guides';
 import type { EraId } from '@/data/types';
 import { ArrowLeft, BookOpen, ShoppingBag, ExternalLink } from 'lucide-react';
+import EmailCapture from '@/components/EmailCapture';
 
 const eraSlugMap: Record<string, EraId> = {
   ancient: 'Ancient',
@@ -49,7 +50,7 @@ export default function EraPage({ params }: { params: { era: string } }) {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
           <Link href="/eras/" className="inline-flex items-center gap-1.5 text-sm" style={{ color: '#78909c', textDecoration: 'none' }}>
             <ArrowLeft size={14} /> All Eras
@@ -77,15 +78,15 @@ export default function EraPage({ params }: { params: { era: string } }) {
               <h2 className="text-xl sm:text-2xl font-bold mb-6" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
                 {essay.title}
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {essay.sections.map((section, i) => (
                   <div key={i}>
-                    <h3 className="text-lg font-semibold mb-2" style={{ color: '#c0a172', fontFamily: "var(--font-playfair), serif" }}>
+                    <h3 className="text-lg font-semibold mb-3" style={{ color: '#c0a172', fontFamily: "var(--font-playfair), serif" }}>
                       {section.heading}
                     </h3>
-                    <div className="space-y-3">
-                      {section.text.split('\n\n').map((para, j) => (
-                        <p key={j} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
+                    <div className="space-y-4">
+                      {section.text.split('\n\n').map((para, pi) => (
+                        <p key={pi} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
                           {para}
                         </p>
                       ))}
@@ -104,7 +105,7 @@ export default function EraPage({ params }: { params: { era: string } }) {
               href={guide.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-xl p-5 transition-all duration-300"
+              className="block rounded-xl p-5 transition-all duration-300 guide-card-hover"
               style={{ background: 'rgba(192,161,114,0.04)', border: '1px solid rgba(192,161,114,0.12)', textDecoration: 'none' }}
             >
               <div className="flex items-center gap-4">
@@ -117,7 +118,7 @@ export default function EraPage({ params }: { params: { era: string } }) {
                     {era.id} Philosophy Companion Guide
                   </p>
                   <p className="text-sm mt-0.5" style={{ color: '#b0a090' }}>
-                    Reading lists, key terms, journal prompts Â· {guide.pages} pg Â· {guide.price}
+                    Reading lists, key terms, journal prompts · {guide.pages} pg · {guide.price}
                   </p>
                 </div>
                 <div className="flex-shrink-0 hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold"
@@ -128,6 +129,11 @@ export default function EraPage({ params }: { params: { era: string } }) {
             </a>
           </section>
         )}
+
+        {/* Email capture */}
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+          <EmailCapture variant="era" />
+        </section>
 
         {/* Philosophers in this era */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">

@@ -44,17 +44,23 @@ export default function PhilosopherPageClient({ arguments: args }: Props) {
               >
                 {arg.desc}
               </p>
-              <p className="text-sm leading-relaxed" style={{ color: '#78909c' }}>
-                <span style={{ color: '#c0a172', fontWeight: 600, fontSize: '0.8rem' }}>
-                  WHY IT MATTERS:
-                </span>{' '}
-                {arg.importance}
+              <p
+                className="text-base italic mb-3 leading-relaxed"
+                style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.65 }}
+              >
+                Why it matters: {arg.importance}
               </p>
               {arg.expanded && (
                 <button
                   onClick={() => toggle(i)}
-                  className="mt-3 flex items-center gap-1.5 text-xs font-semibold transition-colors"
-                  style={{ color: '#c0a172' }}
+                  className="mt-3 flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200"
+                  style={{
+                    background: expanded[i] ? 'rgba(192,161,114,0.15)' : 'rgba(192,161,114,0.08)',
+                    color: '#c0a172',
+                    border: '1px solid rgba(192,161,114,0.2)',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(192,161,114,0.2)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = expanded[i] ? 'rgba(192,161,114,0.15)' : 'rgba(192,161,114,0.08)'; }}
                 >
                   <GraduationCap size={14} />{' '}
                   {expanded[i] ? 'Collapse' : 'Philosophy 101: Read the Full Exploration'}

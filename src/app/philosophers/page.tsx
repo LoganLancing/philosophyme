@@ -13,7 +13,7 @@ export default function PhilosophersPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-16">
         <PhilosophersClient />
       </main>
       <Footer />

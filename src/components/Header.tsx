@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, BookOpen, Brain, Clock, Compass, ShoppingBag, Users } from 'lucide-react';
 
 const navLinks = [
@@ -14,13 +15,23 @@ const navLinks = [
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <header
-      className="sticky top-0 z-40 backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-40 transition-all duration-500"
       style={{
-        background: 'rgba(13,11,8,0.85)',
-        borderBottom: '1px solid rgba(192,161,114,0.12)',
+        background: scrolled ? 'rgba(15,12,8,0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(192,161,114,0.1)' : '1px solid transparent',
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -50,24 +61,32 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
-                style={{ color: '#b0a090' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#c0a172'; (e.currentTarget as HTMLElement).style.background = 'rgba(192,161,114,0.08)'; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = '#b0a090'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname.startsWith(link.href.replace(/\/$/, ''));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+                  style={{
+                    color: isActive ? '#c0a172' : '#b0a090',
+                    background: isActive ? 'rgba(192,161,114,0.1)' : 'transparent',
+                    fontFamily: "var(--font-crimson), serif",
+                    fontSize: '0.95rem',
+                  }}
+                  onMouseEnter={(e) => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#c0a172'; (e.currentTarget as HTMLElement).style.background = 'rgba(192,161,114,0.08)'; }}}
+                  onMouseLeave={(e) => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = '#b0a090'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile Menu Button */}
           <button
             className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center"
-            style={{ color: '#c0a172' }}
+            style={{ background: 'rgba(192,161,114,0.1)', color: '#c0a172' }}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -77,18 +96,22 @@ export default function Header() {
 
         {/* Mobile Nav */}
         {mobileOpen && (
-          <nav className="md:hidden pb-4 anim-fi">
+          <nav className="md:hidden pb-4 anim-fi" style={{ borderTop: '1px solid rgba(192,161,114,0.1)' }}>
             {navLinks.map((link) => {
               const Icon = link.icon;
+              const isActive = pathname.startsWith(link.href.replace(/\/$/, ''));
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors duration-200"
-                  style={{ color: '#b0a090' }}
+                  style={{
+                    color: isActive ? '#c0a172' : '#b0a090',
+                    background: isActive ? 'rgba(192,161,114,0.08)' : 'transparent',
+                  }}
                   onClick={() => setMobileOpen(false)}
                 >
-                  <Icon size={18} style={{ color: '#c0a172' }} />
+                  <Icon size={18} style={{ color: isActive ? '#c0a172' : '#78909c' }} />
                   {link.label}
                 </Link>
               );
