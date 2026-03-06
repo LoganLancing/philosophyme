@@ -1,0 +1,316 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  font-size: 17px;
+}
+
+body {
+  background-color: #0d0b08;
+  color: #b0a090;
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(192, 161, 114, 0.3);
+  color: #f4f4f4;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0b08;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(192, 161, 114, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 161, 114, 0.5);
+}
+
+/* Placeholder styling */
+input::placeholder {
+  color: #5a5040;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-centered {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.anim-fi {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.anim-fiu {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Shimmer gold gradient text */
+.text-shimmer {
+  background: linear-gradient(90deg, #c0a172, #e8d5b5, #c0a172);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Hero grain texture overlay */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+
+/* Gold divider line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(192, 161, 114, 0.4), transparent);
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+
+/* Standard card hover: border glow + lift + shadow */
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  border-color: rgba(192, 161, 114, 0.25) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(26, 21, 16, 0.8) !important;
+}
+
+/* Subtle card hover: gentle lift only */
+.card-hover-subtle {
+  transition: all 0.3s ease;
+}
+.card-hover-subtle:hover {
+  border-color: rgba(192, 161, 114, 0.2) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Guide card hover: lift + border glow */
+.guide-card-hover {
+  transition: all 0.3s ease;
+}
+.guide-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Button hover: subtle opacity/lift */
+.btn-hover {
+  transition: all 0.2s ease;
+}
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(192, 161, 114, 0.25);
+}
+
+/* Tag/pill hover */
+.tag-hover {
+  transition: all 0.2s ease;
+}
+.tag-hover:hover {
+  background: rgba(192, 161, 114, 0.15) !important;
+  border-color: rgba(192, 161, 114, 0.3) !important;
+}
+
+/* Text link hover */
+.link-hover {
+  transition: color 0.2s ease;
+}
+.link-hover:hover {
+  color: #c0a172 !important;
+}
+
+/* ============================================
+   SCROLL-TRIGGERED FADE IN
+   ============================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays for child elements */
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+
+/* Reduced motion: make everything visible immediately */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3,
+  .reveal-delay-4,
+  .reveal-delay-5 {
+    transition-delay: 0s;
+  }
+  .anim-fi,
+  .anim-fiu {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .text-shimmer {
+    animation: none;
+  }
+}
+
+/* ============================================
+   HERO CTA BUTTON ENHANCEMENTS
+   ============================================ */
+
+.cta-primary {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cta-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(192, 161, 114, 0.3);
+}
+
+.cta-secondary {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cta-secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(192, 161, 114, 0.06) !important;
+  border-color: rgba(192, 161, 114, 0.5) !important;
+}
+
+/* ============================================
+   PHILOSOPHY TIMELINE (Why Philosophy Matters)
+   ============================================ */
+
+.philosophy-timeline {
+  position: relative;
+  padding-left: 48px;
+}
+
+.philosophy-timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(192,161,114,0.5), rgba(192,161,114,0.5), transparent);
+  opacity: 0.3;
+}
+
+/* Dot is inside .timeline-entry (position:relative child).
+   Entry content starts at padding-left (48px) from container edge.
+   Vertical line center is at 11.5px from container edge.
+   Dot is 18px wide, so its left edge = 11.5 - 9 = 2.5px from container.
+   Relative to entry content: 2.5 - 48 = -45.5px */
+.timeline-dot {
+  position: absolute;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0d0b08;
+  border: 2px solid rgba(192,161,114,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  left: -46px;
+}
+
+.timeline-dot::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c0a172;
+}
+
+.timeline-entry:hover .timeline-dot {
+  border-color: #c0a172;
+  box-shadow: 0 0 12px rgba(192,161,114,0.3);
+}
+
+/* ============================================
+   STATS BAR
+   ============================================ */
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   ESSAY TOC SCROLL OFFSET
+   ============================================ */
+
+/* Offset scroll targets so section titles aren't hidden behind the fixed header */
+[data-essay-section] {
+  scroll-margin-top: 6rem;
+}
