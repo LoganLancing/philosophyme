@@ -31,9 +31,10 @@ export default function Header() {
     <header
       className="fixed top-0 left-0 right-0 z-40 transition-all duration-500"
       style={{
-        background: scrolled ? 'rgba(15,12,8,0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(192,161,114,0.1)' : '1px solid transparent',
+        background: (scrolled || mobileOpen) ? 'rgba(15,12,8,0.95)' : 'transparent',
+backdropFilter: (scrolled || mobileOpen) ? 'blur(20px)' : 'none',
+borderBottom: (scrolled || mobileOpen) ? '1px solid rgba(192,161,114,0.1)' : '1px solid transparent',
+
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
