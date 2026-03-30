@@ -22,11 +22,21 @@ function getBranchFromSlug(slug: string) {
 export function generateMetadata({ params }: { params: { branch: string } }): Metadata {
   const branch = getBranchFromSlug(params.branch);
   if (!branch) return { title: 'Branch Not Found' };
+
+  const title = `${branch.name} — ${branch.question}`;
+  const description = `${branch.desc} Explore philosophers who work in ${branch.name.toLowerCase()}.`;
+
   return {
-    title: `${branch.name} — ${branch.question}`,
-    description: `${branch.desc} Explore philosophers who work in ${branch.name.toLowerCase()}.`,
+    title,
+    description,
     alternates: {
       canonical: `https://philosophyme.co/branches/${params.branch}/`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: `https://philosophyme.co/branches/${params.branch}/`,
     },
   };
 }
