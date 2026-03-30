@@ -159,6 +159,11 @@ export default function GuidesPage() {
       '@type': 'Product',
       name: 'The PhilosophyMe Companion Guide',
       description: collection?.description,
+      image: 'https://philosophyme.co/og-image.png',
+      brand: {
+        '@type': 'Brand',
+        name: 'PhilosophyMe',
+      },
       offers: {
         '@type': 'Offer',
         price: '19.99',
@@ -172,6 +177,11 @@ export default function GuidesPage() {
       '@type': 'Product',
       name: "Thought Experiments: Philosophy's Great What-Ifs",
       description: teGuide?.description,
+      image: 'https://philosophyme.co/og-image.png',
+      brand: {
+        '@type': 'Brand',
+        name: 'PhilosophyMe',
+      },
       offers: {
         '@type': 'Offer',
         price: '4.99',
