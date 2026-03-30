@@ -32,11 +32,20 @@ export function generateMetadata({ params }: { params: { era: string } }): Metad
   const era = eras.find((e) => e.id === eraId);
   if (!era) return { title: 'Era Not Found' };
 
+  const title = `${era.name} (${era.period}) — Key Thinkers & Ideas`;
+  const description = `${era.desc} Explore ${getPhilosophersByEra(era.id).length} philosophers of the ${era.id} era.`;
+
   return {
-    title: `${era.name} (${era.period})`,
-    description: `${era.desc} Explore ${getPhilosophersByEra(era.id).length} philosophers of the ${era.id} era.`,
+    title,
+    description,
     alternates: {
       canonical: `https://philosophyme.co/eras/${params.era}/`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: `https://philosophyme.co/eras/${params.era}/`,
     },
   };
 }
