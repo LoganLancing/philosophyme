@@ -19,11 +19,21 @@ function getSchoolFromSlug(slug: string) {
 export function generateMetadata({ params }: { params: { school: string } }): Metadata {
   const school = getSchoolFromSlug(params.school);
   if (!school) return { title: 'School Not Found' };
+
+  const title = `${school.name} — Philosophy, Origins & Key Thinkers`;
+  const description = `${school.brief} Learn about the origins, core ideas, and key philosophers of ${school.name.toLowerCase()}.`;
+
   return {
-    title: `${school.name} — School of Thought`,
-    description: school.brief,
+    title,
+    description,
     alternates: {
       canonical: `https://philosophyme.co/schools/${params.school}/`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: `https://philosophyme.co/schools/${params.school}/`,
     },
   };
 }
