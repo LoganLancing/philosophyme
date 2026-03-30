@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Playfair_Display, Crimson_Pro, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 
@@ -76,6 +77,18 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-N7Y21FJKEW"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-N7Y21FJKEW');
+        `}
+      </Script>
       <body className="min-h-screen antialiased" style={{ backgroundColor: '#0d0b08' }}>
         {children}
         <ScrollToTop />
