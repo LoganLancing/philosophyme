@@ -15,14 +15,13 @@ export function generateStaticParams() {
   return philosophers.map((p) => ({ slug: p.id }));
 }
 
-// Dynamic metadata for SEO
+// Dynamic metadata for SEO — optimized for long-tail search CTR
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const p = getPhilosopherBySlug(params.slug);
   if (!p) return { title: 'Philosopher Not Found' };
 
-  const yr = (y: number) => (y === 0 ? 'Present' : y < 0 ? `${Math.abs(y)} BCE` : `${y} CE`);
-  const title = `${p.name} — Philosophy, Key Arguments & Influence`;
-  const description = `${p.name} (${yr(p.birth)}–${yr(p.death)}): ${p.thesis} Explore ${p.name}'s biography, major works, key arguments, and lasting influence on ${p.era.toLowerCase()} philosophy.`;
+  const title = `${p.name} — Key Ideas, Philosophy & Legacy Explained`;
+  const description = `Who was ${p.name}? Discover ${p.name}'s core philosophy, major works, and key arguments — explained in plain language. Free, in-depth profile on PhilosophyMe.`;
 
   return {
     title,
@@ -35,6 +34,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       description,
       type: 'article',
       url: `https://philosophyme.co/philosophers/${p.id}/`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   };
 }
