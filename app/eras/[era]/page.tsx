@@ -27,13 +27,15 @@ export function generateStaticParams() {
   return Object.keys(eraSlugMap).map((era) => ({ era }));
 }
 
+// Dynamic metadata for SEO — optimized for era-related search queries
 export function generateMetadata({ params }: { params: { era: string } }): Metadata {
   const eraId = eraSlugMap[params.era];
   const era = eras.find((e) => e.id === eraId);
   if (!era) return { title: 'Era Not Found' };
 
-  const title = `${era.name} (${era.period}) — Key Thinkers & Ideas`;
-  const description = `${era.desc} Explore ${getPhilosophersByEra(era.id).length} philosophers of the ${era.id} era.`;
+  const count = getPhilosophersByEra(era.id).length;
+  const title = `${era.name} (${era.period}) — Philosophers, Ideas & Legacy`;
+  const description = `Explore ${era.name} (${era.period}): key thinkers, core ideas, and lasting influence. ${count} philosopher profiles in clear, accessible language. Read free.`;
 
   return {
     title,
@@ -46,6 +48,11 @@ export function generateMetadata({ params }: { params: { era: string } }): Metad
       description,
       type: 'article',
       url: `https://philosophyme.co/eras/${params.era}/`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   };
 }
@@ -71,6 +78,12 @@ export default function EraPage({ params }: { params: { era: string } }) {
     Contemporary: { text: 'Existence precedes essence.', author: 'Jean-Paul Sartre' },
   };
   const pullQuote = pullQuotes[eraId];
+
+  // SEO-enriched intro summaries for eras with search traction
+  const eraSeoIntros: Record<string, string> = {
+    Medieval: 'Medieval philosophy spans roughly 500 to 1500 CE and represents one of the richest periods in the history of Western thought. Far from the "Dark Ages" stereotype, medieval philosophers — including Augustine, Avicenna, Thomas Aquinas, Averroes, Maimonides, and William of Ockham — produced sophisticated arguments about the existence of God, the problem of evil, free will, natural law, and the relationship between faith and reason. This era bridges ancient Greek philosophy and the modern period, preserving and extending the work of Plato and Aristotle through Christian, Islamic, and Jewish traditions.',
+  };
+  const seoIntro = eraSeoIntros[eraId];
 
   const breadcrumbLd = {
     '@context': 'https://schema.org',
@@ -109,6 +122,15 @@ export default function EraPage({ params }: { params: { era: string } }) {
             {era.desc}
           </p>
         </div>
+
+        {/* SEO-enriched intro for eras with search traction */}
+        {seoIntro && (
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-6">
+            <p className="text-base leading-relaxed" style={{ color: '#9a8b7a', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
+              {seoIntro}
+            </p>
+          </div>
+        )}
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <EraDecoration era={eraId} />
