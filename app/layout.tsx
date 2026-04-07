@@ -25,15 +25,18 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL('https://philosophyme.co'),
   title: {
-    default: 'PhilosophyMe — 2,600 Years of Human Thought',
+    default: 'PhilosophyMe — 108 Philosophers Explained Simply | Free',
     template: '%s | PhilosophyMe',
   },
   description:
-    'Study 108 philosophers across seven eras of Western philosophy. Read clear profiles, era essays, schools of thought, and companion study guides.',
+    'Explore 108 philosopher profiles across 2,600 years of Western thought — written in clear language for first-time readers. Free forever, no paywalls. Start exploring today.',
   keywords: [
-    'philosophy', 'philosophers', 'philosophy education', 'Plato', 'Aristotle',
-    'Kant', 'Nietzsche', 'ethics', 'metaphysics', 'epistemology',
-    'history of philosophy', 'philosophy 101', 'study guide',
+    'philosophy', 'philosophers', 'philosophy explained simply',
+    'learn philosophy free', 'philosopher profiles', 'philosophy for beginners',
+    'Plato', 'Aristotle', 'Kant', 'Nietzsche', 'Marcus Aurelius', 'Seneca',
+    'Stoicism', 'ethics', 'metaphysics', 'epistemology',
+    'history of philosophy', 'philosophy 101', 'philosophy study guide',
+    'intro to philosophy', 'western philosophy overview',
   ],
   authors: [{ name: 'PhilosophyMe' }],
   openGraph: {
@@ -41,16 +44,16 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://philosophyme.co',
     siteName: 'PhilosophyMe',
-    title: 'PhilosophyMe — 2,600 Years of Human Thought',
+    title: 'PhilosophyMe — 108 Philosophers Explained Simply | Free',
     description:
-      'Study 108 philosophers across seven eras of Western philosophy.',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'PhilosophyMe' }],
+      'Explore 108 philosopher profiles across 2,600 years of Western thought — in clear language for first-time readers. Free forever.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'PhilosophyMe — 108 Philosophers Explained Simply' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PhilosophyMe — 2,600 Years of Human Thought',
+    title: 'PhilosophyMe — 108 Philosophers Explained Simply | Free',
     description:
-      'Study 108 philosophers across seven eras of Western philosophy.',
+      'Explore 108 philosopher profiles across 2,600 years of Western thought — in clear language for first-time readers. Free forever.',
     images: ['/og-image.png'],
   },
   alternates: {
