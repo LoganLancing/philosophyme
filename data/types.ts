@@ -9,6 +9,11 @@ export interface Argument {
   expanded?: string;
 }
 
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
 export interface Philosopher {
   id: string;
   name: string;
@@ -22,6 +27,7 @@ export interface Philosopher {
   works: string[];
   arguments: Argument[];
   influence: string;
+  faq: Faq[];
   initials: string;
   accent: string | null;
 }
