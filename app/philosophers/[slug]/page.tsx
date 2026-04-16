@@ -9,7 +9,7 @@ import { philosophers, getPhilosopherBySlug } from '@/data/philosophers';
 import { eras, eraGradients } from '@/data/eras';
 import type { EraId } from '@/data/types';
 import PhilosopherCard from '@/components/PhilosopherCard';
-import { BookOpen, Globe, Library, ShoppingBag, ExternalLink, ArrowLeft, HelpCircle, Users } from 'lucide-react';
+import { BookOpen, Globe, Library, ShoppingBag, ExternalLink, ArrowLeft, Users } from 'lucide-react';
 
 // Generate static params for all 108 philosophers
 export function generateStaticParams() {
@@ -227,8 +227,8 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
               </div>
             </section>
 
-          {/* Key Arguments — uses client component for expand/collapse */}
-            <PhilosopherPageClient arguments={philosopher.arguments} />
+          {/* Key Arguments + FAQ — uses client component for expand/collapse */}
+            <PhilosopherPageClient arguments={philosopher.arguments} faq={philosopher.faq} />
 
           {/* Lasting Influence */}
             <section
@@ -245,30 +245,6 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
                 {philosopher.influence}
               </p>
             </section>
-
-          {/* FAQ Section */}
-          {philosopher.faq.length > 0 && (
-            <section className="anim-fiu">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#f4f4f4' }}>
-                <HelpCircle size={18} style={{ color: '#c0a172' }} /> Frequently Asked Questions
-              </h2>
-              <div className="space-y-4">
-                {philosopher.faq.map((f, i) => (
-                  <div key={i}>
-                    <h3 className="font-semibold mb-1" style={{ color: '#c0a172', fontSize: '1rem' }}>
-                      {f.question}
-                    </h3>
-                    <p
-                      className="leading-relaxed"
-                      style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", fontSize: '1.05rem', lineHeight: 1.8 }}
-                    >
-                      {f.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
 
           {/* Related Philosophers */}
           {related.length > 0 && (
