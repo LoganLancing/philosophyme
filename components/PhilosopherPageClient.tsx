@@ -1,20 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import { Lightbulb, GraduationCap, ChevronDown } from 'lucide-react';
-import type { Argument } from '@/data/types';
+import { Lightbulb, GraduationCap, ChevronDown, HelpCircle } from 'lucide-react';
+import type { Argument, Faq } from '@/data/types';
 
 interface Props {
   arguments: Argument[];
+  faq: Faq[];
 }
 
-export default function PhilosopherPageClient({ arguments: args }: Props) {
+export default function PhilosopherPageClient({ arguments: args, faq }: Props) {
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const toggle = (i: number) => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
+
+  const [faqOpen, setFaqOpen] = useState<Record<number, boolean>>({});
+  const toggleFaq = (i: number) => setFaqOpen((prev) => ({ ...prev, [i]: !prev[i] }));
 
   const hasAnyExpanded = args.some((a) => a.expanded);
 
   return (
+    <>
     <section>
       <h2 className="text-lg font-semibold mb-1 flex items-center gap-2" style={{ color: '#f4f4f4' }}>
         <Lightbulb size={18} style={{ color: '#c0a172' }} /> Key Arguments
@@ -96,5 +101,58 @@ export default function PhilosopherPageClient({ arguments: args }: Props) {
         ))}
       </div>
     </section>
+
+      {/* FAQ Accordion */}
+      {faq.length > 0 && (
+        <section className="anim-fiu">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#f4f4f4' }}>
+            <HelpCircle size={18} style={{ color: '#c0a172' }} /> Frequently Asked Questions
+          </h2>
+          <div className="space-y-2">
+            {faq.map((f, i) => (
+              <div
+                key={i}
+                className="rounded-xl overflow-hidden"
+                style={{
+                  background: 'rgba(192,161,114,0.05)',
+                  border: '1px solid rgba(192,161,114,0.08)',
+                }}
+              >
+                <button
+                  onClick={() => toggleFaq(i)}
+                  className="w-full text-left p-4 flex items-center justify-between gap-3 transition-all duration-200"
+                  style={{ background: faqOpen[i] ? 'rgba(192,161,114,0.08)' : 'transparent' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(192,161,114,0.1)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = faqOpen[i] ? 'rgba(192,161,114,0.08)' : 'transparent'; }}
+                >
+                  <h3 className="font-semibold" style={{ color: '#c0a172', fontSize: '1rem' }}>
+                    {f.question}
+                  </h3>
+                  <ChevronDown
+                    size={16}
+                    style={{
+                      color: '#c0a172',
+                      flexShrink: 0,
+                      transition: 'transform 0.3s',
+                      transform: faqOpen[i] ? 'rotate(180deg)' : 'rotate(0)',
+                    }}
+                  />
+                </button>
+                {faqOpen[i] && (
+                  <div className="px-4 pb-4 anim-fi">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", fontSize: '1.05rem', lineHeight: 1.8 }}
+                    >
+                      {f.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </>
   );
 }
