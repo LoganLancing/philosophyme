@@ -8,7 +8,8 @@ import PhilosopherPageClient from '@/components/PhilosopherPageClient';
 import { philosophers, getPhilosopherBySlug } from '@/data/philosophers';
 import { eras, eraGradients } from '@/data/eras';
 import type { EraId } from '@/data/types';
-import { BookOpen, Globe, Library, ShoppingBag, ExternalLink, ArrowLeft } from 'lucide-react';
+import PhilosopherCard from '@/components/PhilosopherCard';
+import { BookOpen, Globe, Library, ShoppingBag, ExternalLink, ArrowLeft, HelpCircle, Users } from 'lucide-react';
 
 // Generate static params for all 108 philosophers
 export function generateStaticParams() {
@@ -74,6 +75,32 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
     ],
   };
 
+  const faqLd = philosopher.faq.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: philosopher.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer,
+      },
+    })),
+  } : null;
+
+  // Related philosophers: score by shared branches + schools, take top 6
+  const related = philosophers
+    .filter((p) => p.id !== philosopher.id)
+    .map((p) => ({
+      philosopher: p,
+      score:
+        p.branch.filter((b) => philosopher.branch.includes(b)).length +
+        p.school.filter((s) => philosopher.school.includes(s)).length,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 6)
+    .map((r) => r.philosopher);
+
   return (
     <>
       <Header />
@@ -87,6 +114,12 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
         />
+        {faqLd && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+          />
+        )}
 
         {/* Back link */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-6">
@@ -212,6 +245,44 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
                 {philosopher.influence}
               </p>
             </section>
+
+          {/* FAQ Section */}
+          {philosopher.faq.length > 0 && (
+            <section className="anim-fiu">
+              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#f4f4f4' }}>
+                <HelpCircle size={18} style={{ color: '#c0a172' }} /> Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {philosopher.faq.map((f, i) => (
+                  <div key={i}>
+                    <h3 className="font-semibold mb-1" style={{ color: '#c0a172', fontSize: '1rem' }}>
+                      {f.question}
+                    </h3>
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", fontSize: '1.05rem', lineHeight: 1.8 }}
+                    >
+                      {f.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Related Philosophers */}
+          {related.length > 0 && (
+            <section className="anim-fiu">
+              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#f4f4f4' }}>
+                <Users size={18} style={{ color: '#c0a172' }} /> Related Philosophers
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {related.map((p) => (
+                  <PhilosopherCard key={p.id} philosopher={p} />
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Companion Guide CTA */}
               <a
