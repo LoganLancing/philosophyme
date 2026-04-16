@@ -1,4 +1,5 @@
 import type { Philosopher, EraId } from "./types";
+import { philosopherFaqs } from "./faq";
 
 // Helper to construct philosopher objects
 const defined = (
@@ -6,15 +7,18 @@ const defined = (
   branch: string[], school: string[], thesis: string, bio: string,
   works: string[], args: any[], influence: string,
   initials?: string, accent?: string | null
-): Philosopher => ({
-  id: name.toLowerCase()
+): Philosopher => {
+  const id = name.toLowerCase()
     .replace(/[éèê]/g, 'e').replace(/[òó]/g, 'o').replace(/ø/g, 'o').replace(/ü/g, 'u')
-    .replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, ''),
-  name, birth, death, era, branch, school, thesis, bio, works,
-  arguments: args, influence,
-  initials: initials || name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
-  accent: accent || null,
-});
+    .replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  return {
+    id, name, birth, death, era, branch, school, thesis, bio, works,
+    arguments: args, influence,
+    faq: philosopherFaqs[id] || [],
+    initials: initials || name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+    accent: accent || null,
+  };
+};
 
 export const philosophers = [
   // ========== ANCIENT (16) ==========
