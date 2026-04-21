@@ -1,5 +1,6 @@
 import type { Philosopher, EraId } from "./types";
 import { philosopherFaqs } from "./faq";
+import { philosopherQuotes } from "./quotes";
 
 // Helper to construct philosopher objects
 const defined = (
@@ -15,6 +16,7 @@ const defined = (
     id, name, birth, death, era, branch, school, thesis, bio, works,
     arguments: args, influence,
     faq: philosopherFaqs[id] || [],
+    quotes: philosopherQuotes[id] || [],
     initials: initials || name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
     accent: accent || null,
   };
