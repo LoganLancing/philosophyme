@@ -14,6 +14,11 @@ export interface Faq {
   answer: string;
 }
 
+export interface Quote {
+  text: string;
+  source?: string;
+}
+
 export interface Philosopher {
   id: string;
   name: string;
@@ -28,6 +33,7 @@ export interface Philosopher {
   arguments: Argument[];
   influence: string;
   faq: Faq[];
+  quotes: Quote[];
   initials: string;
   accent: string | null;
 }
