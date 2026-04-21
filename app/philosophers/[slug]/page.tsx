@@ -9,7 +9,7 @@ import { philosophers, getPhilosopherBySlug } from '@/data/philosophers';
 import { eras, eraGradients } from '@/data/eras';
 import type { EraId } from '@/data/types';
 import PhilosopherCard from '@/components/PhilosopherCard';
-import { BookOpen, Globe, Library, ShoppingBag, ExternalLink, ArrowLeft, Users } from 'lucide-react';
+import { BookOpen, Globe, Library, Quote as QuoteIcon, ShoppingBag, ExternalLink, ArrowLeft, Users } from 'lucide-react';
 
 // Generate static params for all 108 philosophers
 export function generateStaticParams() {
@@ -88,6 +88,17 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
     })),
   } : null;
 
+  const quotesLd = philosopher.quotes.length > 0 ? philosopher.quotes.map((q) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Quotation',
+    text: q.text,
+    creator: {
+      '@type': 'Person',
+      name: philosopher.name,
+    },
+    ...(q.source ? { isPartOf: { '@type': 'Book', name: q.source } } : {}),
+  })) : null;
+
   // Related philosophers: score by shared branches + schools, take top 6
   const related = philosophers
     .filter((p) => p.id !== philosopher.id)
@@ -120,6 +131,13 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
             dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
           />
         )}
+        {quotesLd && quotesLd.map((q, i) => (
+          <script
+            key={`quote-ld-${i}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(q) }}
+          />
+        ))}
 
         {/* Back link */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-6">
@@ -226,6 +244,46 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
                 ))}
               </div>
             </section>
+
+          {/* Notable Quotes */}
+          {philosopher.quotes.length > 0 && (
+            <section className="anim-fiu">
+              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#f4f4f4' }}>
+                <QuoteIcon size={18} style={{ color: '#c0a172' }} /> Notable Quotes
+              </h2>
+              <div className="space-y-3">
+                {philosopher.quotes.map((q, i) => (
+                  <blockquote
+                    key={i}
+                    className="rounded-xl p-5"
+                    style={{
+                      background: 'rgba(192,161,114,0.05)',
+                      border: '1px solid rgba(192,161,114,0.08)',
+                      borderLeft: '3px solid rgba(192,161,114,0.4)',
+                    }}
+                  >
+                    <p
+                      className="italic leading-relaxed"
+                      style={{ color: '#d3b9a3', fontFamily: "var(--font-crimson), serif", fontSize: '1.1rem', lineHeight: 1.7 }}
+                    >
+                      &ldquo;{q.text}&rdquo;
+                    </p>
+                    {q.source && (
+                      <>
+                        <div style={{ height: 1, width: 32, background: 'rgba(192,161,114,0.3)', margin: '0.75rem 0' }} />
+                        <cite
+                          className="text-sm not-italic"
+                          style={{ color: '#8fa3b0', fontFamily: "var(--font-crimson), serif" }}
+                        >
+                          — {q.source}
+                        </cite>
+                      </>
+                    )}
+                  </blockquote>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Key Arguments + FAQ — uses client component for expand/collapse */}
             <PhilosopherPageClient arguments={philosopher.arguments} faq={philosopher.faq} />
