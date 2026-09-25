@@ -66,6 +66,7 @@ export const metadata: Metadata = {
 };
 
 import ScrollToTop from '@/components/ScrollToTop';
+import SiteAnalytics from '@/components/SiteAnalytics';
 
 export default function RootLayout({
   children,
@@ -95,6 +96,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased" style={{ backgroundColor: '#0d0b08' }}>
         {children}
         <ScrollToTop />
+        <SiteAnalytics />
       </body>
     </html>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import EmailCapture from '@/components/EmailCapture';
 import { guides } from '@/data/guides';
 import { eras } from '@/data/eras';
 import { BookOpen, ShoppingBag, ExternalLink, Sparkles, Download, Library, Calendar, Globe, Lightbulb } from 'lucide-react';
@@ -355,6 +356,7 @@ export default function GuidesPage() {
                     href={collection.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track-location="guides-hero"
                     className="inline-flex items-center gap-2 px-10 py-3.5 rounded-xl text-base font-semibold transition-all duration-200"
                     style={{
                       background: 'linear-gradient(135deg, #c0a172, #8B6914)',
@@ -457,6 +459,7 @@ export default function GuidesPage() {
                       href={teGuide.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-track-location="guides-thought-experiments"
                       className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-base font-semibold transition-all duration-200"
                       style={{
                         background: 'linear-gradient(135deg, #c0a172, #8B6914)',
@@ -500,19 +503,12 @@ export default function GuidesPage() {
                 >
                   This study plan moves through the Companion Guide, the site, and selected primary texts. It covers one era at a time and mixes in branch essays and thought experiments. Use it as written or adjust the pace to fit your schedule.
                 </p>
-                <a
-                  href="/downloads/PhilosophyMe_14_Week_Study_Plan.pdf"
-                  download
-                  className="inline-flex items-center gap-2 mt-5 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
-                  style={{
-                    background: 'rgba(192,161,114,0.08)',
-                    border: '1px solid rgba(192,161,114,0.2)',
-                    color: '#c0a172',
-                    textDecoration: 'none',
-                  }}
-                >
-                  <Download size={15} /> Download Printable PDF
-                </a>
+                <div className="mt-5" data-track-location="guides-study-plan">
+                  <p className="text-sm mb-3" style={{ color: '#8fa3b0' }}>
+                    Want the printable PDF? It comes free with Chapter 1 of the Companion Guide:
+                  </p>
+                  <EmailCapture variant="guides-inline" location="guides-study-plan" />
+                </div>
               </div>
 
               {/* Quick overview bar */}
@@ -664,6 +660,7 @@ export default function GuidesPage() {
                     href={collection.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track-location="guides-after-study-plan"
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 btn-hover"
                     style={{
                       background: 'linear-gradient(135deg, #c0a172, #8B6914)',
@@ -702,20 +699,11 @@ export default function GuidesPage() {
                 Not ready to buy? Read a free chapter first.
               </h3>
               <p className="text-base mb-5 max-w-md mx-auto" style={{ color: '#8fa3b0', fontFamily: "var(--font-crimson), serif" }}>
-                Get a free chapter from the Companion Guide and see what the full book is like.
+                Get Chapter 1 of the Companion Guide, plus the printable 14-week study plan, and see what the full book is like.
               </p>
-              <a
-                href="/downloads/PhilosophyMe_Free_Chapter.pdf"
-                download
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200"
-                style={{
-                  background: 'linear-gradient(135deg, #c0a172, #8B6914)',
-                  color: '#fff',
-                  textDecoration: 'none',
-                }}
-              >
-                <Download size={16} /> Download Free Chapter (PDF)
-              </a>
+              <div data-track-location="guides-bottom">
+                <EmailCapture variant="guides-inline" location="guides-bottom" />
+              </div>
             </div>
           </div>
         </div>

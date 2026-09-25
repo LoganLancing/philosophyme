@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import PhilosopherCard from '@/components/PhilosopherCard';
 import EssayTableOfContents from '@/components/EssayTableOfContents';
 import EssayPullQuote from '@/components/EssayPullQuote';
+import FreeChapterCard from '@/components/FreeChapterCard';
 import { branches } from '@/data/branches';
 import { branchEssays } from '@/data/branchEssays';
 import { getPhilosophersByBranch } from '@/data/philosophers';
@@ -121,6 +122,11 @@ export default function BranchPage({ params }: { params: { branch: string } }) {
             </div>
           </section>
         )}
+
+        {/* Free chapter offer between the essay and the philosopher list */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-12">
+          <FreeChapterCard location="branch" heading="New to philosophy? Start here." />
+        </div>
 
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
             <h2 className="text-2xl font-bold mb-6" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>

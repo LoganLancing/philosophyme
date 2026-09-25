@@ -9,6 +9,7 @@ import { philosophers, getPhilosopherBySlug } from '@/data/philosophers';
 import { eras, eraGradients } from '@/data/eras';
 import type { EraId } from '@/data/types';
 import PhilosopherCard from '@/components/PhilosopherCard';
+import FreeChapterCard from '@/components/FreeChapterCard';
 import { BookOpen, Globe, Library, Quote as QuoteIcon, ShoppingBag, ExternalLink, ArrowLeft, Users } from 'lucide-react';
 
 // Generate static params for all 108 philosophers
@@ -285,6 +286,17 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
             </section>
           )}
 
+          {/* Free chapter offer, about a third of the way down */}
+          <FreeChapterCard
+            location="philosopher"
+            heading={`Studying ${philosopher.name}?`}
+            body={
+              philosopher.era === 'Ancient'
+                ? `${philosopher.name} belongs to the Ancient era, and Chapter 1 of the Companion Guide tells that era's story. Get it free, plus a printable 14-week study plan.`
+                : `The Companion Guide gives ${era ? era.name : 'every era'} its own chapter. Start with Chapter 1 (Ancient Philosophy) free, plus a printable 14-week study plan.`
+            }
+          />
+
           {/* Key Arguments + FAQ — uses client component for expand/collapse */}
             <PhilosopherPageClient arguments={philosopher.arguments} faq={philosopher.faq} />
 
@@ -323,6 +335,7 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
                 href="https://lancing1.gumroad.com/l/the-complete-collection"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-track-location="philosopher-bottom"
                 className="block rounded-xl overflow-hidden transition-all duration-300 guide-card-hover"
                 style={{
                   background: 'rgba(192,161,114,0.04)',

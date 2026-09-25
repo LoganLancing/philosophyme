@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { Search, X, Sparkles, Filter, BookOpen, Clock, Compass } from 'lucide-react';
 import PhilosopherCard from './PhilosopherCard';
+import FreeChapterCard from './FreeChapterCard';
 import { philosophers } from '@/data/philosophers';
 import { eras } from '@/data/eras';
 import { branches } from '@/data/branches';
@@ -253,6 +254,7 @@ export default function PhilosophersClient() {
               Philosophers are grouped by era below. You can scroll and browse or use the filters above to narrow the list.
             </p>
           </div>
+          <FreeChapterCard className="max-w-3xl mx-auto mt-8" location="philosophers-index" />
           <div className="gold-line mt-8" />
         </div>
       )}

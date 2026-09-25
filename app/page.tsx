@@ -7,9 +7,11 @@ import { branches } from '@/data/branches';
 import { dailyQuotes } from '@/data/quotes';
 import {
   BookOpen, Clock, Compass, Users, PenLine, Lightbulb,
-  Sparkles, Layers, Coffee, ExternalLink, GraduationCap, Download,
+  Sparkles, Layers, Coffee, ExternalLink, GraduationCap,
 } from 'lucide-react';
 import HomeClient from '@/components/HomeClient';
+import FreeChapterCard from '@/components/FreeChapterCard';
+import EmailCapture from '@/components/EmailCapture';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionOrnament from '@/components/SectionOrnament';
 
@@ -239,6 +241,11 @@ export default function HomePage() {
               })}
             </div>
           </div>
+        </section>
+
+        {/* ========== 3b. FREE CHAPTER OFFER ========== */}
+        <section className="px-6 pb-16">
+          <FreeChapterCard className="max-w-3xl mx-auto" location="home" />
         </section>
 
         {/* ========== 4. QUOTE OF THE DAY (client) ========== */}
@@ -474,22 +481,11 @@ export default function HomePage() {
                 >
                   PhilosophyMe helps first-time readers, homeschool students, college students, and lifelong learners study philosophy in clear, simple language.
                 </p>
-                <div className="max-w-md mx-auto mb-6">
+                <div className="max-w-md mx-auto mb-6" data-track-location="home-bottom">
                   <p className="text-sm mb-3" style={{ color: '#b0a090' }}>
                     Get a free chapter from the Companion Guide:
                   </p>
-                  <a
-                    href="/downloads/PhilosophyMe_Free_Chapter.pdf"
-                    download
-                    className="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
-                    style={{
-                      background: 'linear-gradient(135deg, #c0a172, #8B6914)',
-                      color: '#fff',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <Download size={14} /> Download Free Chapter
-                  </a>
+                  <EmailCapture variant="guides-inline" location="home-bottom" />
                 </div>
                 <p className="text-sm" style={{ color: '#78909c' }}>
                   Created by Logan Lancing · © 2026 PhilosophyMe

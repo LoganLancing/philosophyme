@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FreeChapterCard from '@/components/FreeChapterCard';
 import { branches } from '@/data/branches';
 import { schools } from '@/data/schools';
 
@@ -44,6 +45,14 @@ export default function BranchesPage() {
             </Link>
           ))}
         </div>
+
+        {/* Free chapter offer between Branches and Schools */}
+        <FreeChapterCard
+          className="max-w-3xl mx-auto mb-20"
+          location="branches-index"
+          heading="New to philosophy? Start here."
+          body="The Companion Guide tells philosophy's story era by era. Get Chapter 1 (Ancient Philosophy) free, plus a printable 14-week study plan that also works through the branches."
+        />
 
         <div className="max-w-5xl mx-auto"><div className="gold-line" /></div>
 

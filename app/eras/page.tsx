@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FreeChapterCard from '@/components/FreeChapterCard';
 import { eras } from '@/data/eras';
 import { philosophers } from '@/data/philosophers';
 
@@ -25,11 +27,20 @@ export default function ErasPage() {
           </p>
         </div>
         <div className="space-y-6">
-          {eras.map((era) => {
+          {eras.map((era, i) => {
             const count = philosophers.filter((p) => p.era === era.id).length;
             return (
+              <Fragment key={era.id}>
+              {/* Free chapter offer after the third era, mid-list */}
+              {i === 3 && (
+                <FreeChapterCard
+                  className="max-w-3xl mx-auto"
+                  location="eras-index"
+                  heading="Read the first era, free"
+                  body="The Companion Guide tells the story of all seven eras. Get Chapter 1 (Ancient Philosophy) free, plus a printable 14-week study plan."
+                />
+              )}
               <Link
-                key={era.id}
                 href={`/eras/${era.id.toLowerCase().replace(/\s+/g, '-')}/`}
                 className="block rounded-2xl p-6 sm:p-8 transition-all duration-300 card-hover"
                 style={{ background: 'rgba(26,21,16,0.6)', border: '1px solid rgba(192,161,114,0.1)', textDecoration: 'none' }}
@@ -48,6 +59,7 @@ export default function ErasPage() {
                   {count} philosophers · {era.key}
                 </p>
               </Link>
+              </Fragment>
             );
           })}
         </div>

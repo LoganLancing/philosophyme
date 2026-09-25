@@ -7,11 +7,13 @@ import PhilosopherCard from '@/components/PhilosopherCard';
 import EssayTableOfContents from '@/components/EssayTableOfContents';
 import EssayPullQuote from '@/components/EssayPullQuote';
 import EraDecoration from '@/components/EraDecoration';
+import FreeChapterCard from '@/components/FreeChapterCard';
+import EmailCapture from '@/components/EmailCapture';
 import { eras } from '@/data/eras';
 import { eraEssays } from '@/data/eraEssays';
 import { getPhilosophersByEra } from '@/data/philosophers';
 import type { EraId } from '@/data/types';
-import { ArrowLeft, BookOpen, ShoppingBag, ExternalLink, Download } from 'lucide-react';
+import { ArrowLeft, BookOpen, ShoppingBag, ExternalLink } from 'lucide-react';
 
 const eraSlugMap: Record<string, EraId> = {
   ancient: 'Ancient',
@@ -170,6 +172,18 @@ export default function EraPage({ params }: { params: { era: string } }) {
                       {i === 0 && pullQuote && (
                         <EssayPullQuote text={pullQuote.text} author={pullQuote.author} />
                       )}
+                      {i === 0 && (
+                        <FreeChapterCard
+                          className="mt-8"
+                          location="era"
+                          heading={eraId === 'Ancient' ? 'Read this era’s chapter, free' : `Go deeper into ${era.name}`}
+                          body={
+                            eraId === 'Ancient'
+                              ? 'Chapter 1 of the Companion Guide tells the Ancient era’s story as one connected narrative. Get it free, plus a printable 14-week study plan.'
+                              : `The Companion Guide gives ${era.name} its own chapter. Start with Chapter 1 (Ancient Philosophy) free, plus a printable 14-week study plan.`
+                          }
+                        />
+                      )}
                       {i < essay.sections.length - 1 && (
                         <div className="gold-line mt-8" />
                       )}
@@ -187,6 +201,7 @@ export default function EraPage({ params }: { params: { era: string } }) {
             href="https://lancing1.gumroad.com/l/the-complete-collection"
             target="_blank"
             rel="noopener noreferrer"
+            data-track-location="era-bottom"
             className="block rounded-xl p-5 transition-all duration-300 guide-card-hover"
             style={{ background: 'rgba(192,161,114,0.04)', border: '1px solid rgba(192,161,114,0.12)', textDecoration: 'none' }}
           >
@@ -211,24 +226,9 @@ export default function EraPage({ params }: { params: { era: string } }) {
           </a>
         </section>
 
-        {/* Free chapter download */}
-          <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
-            <p
-              className="text-center text-sm mb-3 mt-4"
-              style={{ color: '#8fa3b0' }}
-            >
-              Not ready to buy?{' '}
-              <a
-                href="/downloads/PhilosophyMe_Free_Chapter.pdf"
-                download
-                className="inline-items-center gap-1 font-semibold transition-colors duration-200"
-                style={{ color: '#c0a172', textDecoration: 'none' }}
-              >
-                <Download size={12} className="inline mr-1" style={{ verticalAlign: '-2px' }} />
-                Download a free sample chapter
-              </a>{' '}
-              from the Companion Guide.
-            </p>
+        {/* Free chapter by email (downloads appear as soon as they sign up) */}
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12" data-track-location="era-bottom">
+            <EmailCapture variant="era" location="era-bottom" />
           </section>
 
         {/* Philosophers in this era */}

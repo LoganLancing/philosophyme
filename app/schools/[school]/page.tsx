@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhilosopherCard from '@/components/PhilosopherCard';
+import FreeChapterCard from '@/components/FreeChapterCard';
 import { schools } from '@/data/schools';
 import { getPhilosophersBySchool } from '@/data/philosophers';
 import { ArrowLeft } from 'lucide-react';
@@ -77,6 +78,11 @@ export default function SchoolPage({ params }: { params: { school: string } }) {
             </div>
           </div>
         </section>
+
+        {/* Free chapter offer between the overview and the thinkers */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-12">
+          <FreeChapterCard location="school" />
+        </div>
 
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
           <h2 className="text-2xl font-bold mb-6" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>

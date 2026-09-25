@@ -6,7 +6,7 @@ export const guides: GuideProduct[] = [
     title: 'The Companion Guide',
     subtitle: 'The PhilosophyMe Companion Guide',
     url: 'https://lancing1.gumroad.com/l/the-complete-collection',
-    pages: 141,
+    pages: 142,
     price: '$19.99',
     description:
       'Seven eras of Western philosophy in one volume, from the ancient Greeks to contemporary thinkers, plus 25 thought experiments. A reading plan for self-study, book clubs, or use alongside a Philosophy 101 course.',

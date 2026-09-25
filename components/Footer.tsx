@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BookOpen, ExternalLink } from 'lucide-react';
+import EmailCapture from './EmailCapture';
 
 export default function Footer() {
   return (
@@ -45,6 +46,9 @@ export default function Footer() {
             >
               Making philosophy accessible — from first-time explorers to lifelong students of thought.
             </p>
+            <div className="mt-5 max-w-sm" data-track-location="footer">
+              <EmailCapture variant="footer" location="footer" />
+            </div>
           </div>
 
           {/* Links */}
