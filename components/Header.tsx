@@ -3,12 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, BookOpen, Brain, Clock, Compass, ShoppingBag, Users, Coffee } from 'lucide-react';
+import { Menu, X, BookOpen, Brain, Clock, Compass, Landmark, ShoppingBag, Users, Coffee } from 'lucide-react';
 
 const navLinks = [
   { href: '/', label: 'Home', icon: BookOpen },
   { href: '/eras/', label: 'Eras', icon: Clock },
   { href: '/branches/', label: 'Branches', icon: Compass },
+  { href: '/schools/', label: 'Schools', icon: Landmark },
   { href: '/philosophers/', label: 'Philosophers', icon: Brain },
   { href: '/guides/', label: 'Guide', icon: ShoppingBag },
   { href: '/community/', label: 'Community', icon: Users },

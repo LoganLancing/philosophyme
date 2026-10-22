@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FreeChapterCard from '@/components/FreeChapterCard';
 import { branches } from '@/data/branches';
-import { schools } from '@/data/schools';
+import { schools, schoolSlug } from '@/data/schools';
 
 export const metadata: Metadata = {
   title: 'Branches & Schools of Philosophy',
@@ -23,7 +23,7 @@ export default function BranchesPage() {
             Branches of Philosophy
           </h1>
           <p className="text-base max-w-2xl mx-auto" style={{ color: '#8fa3b0' }}>
-            Six major areas of philosophical study.
+            Philosophy has six main branches: metaphysics, epistemology, ethics, political philosophy, logic and aesthetics. Each one is a field of questions, from what exists to how we should live.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
@@ -62,14 +62,18 @@ export default function BranchesPage() {
             Schools of Thought
           </h2>
           <p className="text-base max-w-2xl mx-auto" style={{ color: '#8fa3b0' }}>
-            Twenty-one philosophical traditions, each with its own way of answering the big questions.
+            Twenty-one philosophical traditions, each with its own way of answering the big questions.{' '}
+            <Link href="/schools/" className="link-hover" style={{ color: '#c0a172' }}>
+              See all schools of philosophy in order
+            </Link>
+            .
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {schools.map((s) => (
             <Link
               key={s.id}
-              href={`/schools/${s.id.toLowerCase().replace(/\s+/g, '-')}/`}
+              href={`/schools/${schoolSlug(s.id)}/`}
               className="block rounded-xl p-5 transition-all duration-300 card-hover"
               style={{ background: 'rgba(26,21,16,0.6)', border: '1px solid rgba(192,161,114,0.1)', textDecoration: 'none' }}
             >

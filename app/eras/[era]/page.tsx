@@ -9,11 +9,12 @@ import EssayPullQuote from '@/components/EssayPullQuote';
 import EraDecoration from '@/components/EraDecoration';
 import FreeChapterCard from '@/components/FreeChapterCard';
 import EmailCapture from '@/components/EmailCapture';
+import GuideCard from '@/components/GuideCard';
 import { eras } from '@/data/eras';
 import { eraEssays } from '@/data/eraEssays';
 import { getPhilosophersByEra } from '@/data/philosophers';
 import type { EraId } from '@/data/types';
-import { ArrowLeft, BookOpen, ShoppingBag, ExternalLink } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 const eraSlugMap: Record<string, EraId> = {
   ancient: 'Ancient',
@@ -24,6 +25,45 @@ const eraSlugMap: Record<string, EraId> = {
   '19th-century': '19th Century',
   contemporary: 'Contemporary',
 };
+
+// Answer-first openers: the first sentence says plainly what the era is, so search
+// results and AI answers can quote it on its own. Also used for the meta description.
+const eraIntros: Record<EraId, string> = {
+  Ancient:
+    'Ancient philosophy is Western philosophy from about 600 BCE to 500 CE, the period that runs from the first Greek thinkers to the late Roman schools. It begins with the Pre-Socratics asking what the world is made of, grows through Socrates, Plato and Aristotle, then turns toward daily life in schools like Stoicism and Epicureanism.',
+  Medieval:
+    'Medieval philosophy is Western philosophy from about 400 to 1500 CE, when Christian, Islamic and Jewish thinkers worked out how Greek philosophy fits with religious faith. They asked how faith and reason fit together and wrote serious arguments about God, free will, natural law and existence.',
+  Renaissance:
+    'Renaissance philosophy is Western philosophy from about 1400 to 1600 CE, when humanists recovered classical learning and put new focus on human life, politics, language and observation. Thinkers like Machiavelli, Erasmus and Montaigne challenged old authority and paid closer attention to the world in front of them.',
+  'Early Modern':
+    'Early modern philosophy is Western philosophy from about 1600 to 1750 CE, the period that grew up alongside the scientific revolution. Descartes asked what we can know with certainty, and Hobbes, Spinoza, Leibniz and Locke each built new systems for thinking about knowledge, politics, mind and nature.',
+  Enlightenment:
+    'Enlightenment philosophy is Western philosophy from about 1685 to 1815 CE, when thinkers like Hume, Voltaire, Rousseau and Kant applied reason to politics, religion, ethics and society. They argued about liberty, rights, toleration, government and the reach of human reason.',
+  '19th Century':
+    'Nineteenth-century philosophy is Western philosophy from about 1800 to 1900, a century that pushed back against easy faith in reason and progress. Hegel, Marx, Kierkegaard, Nietzsche and the pragmatists raised harder questions about history, truth, value and meaning.',
+  Contemporary:
+    'Contemporary philosophy is Western philosophy from about 1900 to the present day. It is wide-ranging and often specialized, taking in analytic philosophy, phenomenology, existentialism, feminism, postmodernism, applied ethics and more.',
+};
+
+// Search titles: lead with the name people search for, keep it short enough to show in full.
+const eraTitles: Partial<Record<EraId, string>> = {
+  Contemporary: 'Contemporary Philosophy: Key Ideas and Thinkers Since 1900',
+};
+
+// What each era's chapter of the Companion Guide adds (themes from the study plan on /guides/).
+const eraChapterBlurbs: Record<EraId, string> = {
+  Ancient: 'A reading path through the era, primary texts to start with, and journal prompts on virtue, justice and the good life. Part of the full guide: seven eras in one volume.',
+  Medieval: 'A reading path through the era, primary texts to start with, and journal prompts on faith, reason and the nature of existence. Part of the full guide: seven eras in one volume.',
+  Renaissance: 'A reading path through the era, primary texts to start with, and journal prompts on power, humanism and the individual. Part of the full guide: seven eras in one volume.',
+  'Early Modern': 'A reading path through the era, primary texts to start with, and journal prompts on doubt, knowledge and the mind-body problem. Part of the full guide: seven eras in one volume.',
+  Enlightenment: 'A reading path through the era, primary texts to start with, and journal prompts on knowledge, reason and human rights. Part of the full guide: seven eras in one volume.',
+  '19th Century': 'A reading path through the era, primary texts to start with, and journal prompts on ideology, crisis and the search for meaning. Part of the full guide: seven eras in one volume.',
+  Contemporary: 'A reading path through the era, primary texts to start with, and journal prompts on freedom, justice and the limits of knowledge. Part of the full guide: seven eras in one volume.',
+};
+
+function firstSentence(text: string): string {
+  return text.split(/(?<=\.)\s/)[0];
+}
 
 export function generateStaticParams() {
   return Object.keys(eraSlugMap).map((era) => ({ era }));
@@ -36,8 +76,8 @@ export function generateMetadata({ params }: { params: { era: string } }): Metad
   if (!era) return { title: 'Era Not Found' };
 
   const count = getPhilosophersByEra(era.id).length;
-  const title = `${era.name} (${era.period}) — Philosophers, Ideas & Legacy`;
-  const description = `Explore ${era.name} (${era.period}): key thinkers, core ideas, and lasting influence. ${count} philosopher profiles in clear, accessible language. Read free.`;
+  const title = eraTitles[era.id] ?? `${era.name}: Key Ideas and Thinkers`;
+  const description = `${firstSentence(eraIntros[era.id])} ${count} philosophers explained in plain language.`;
 
   return {
     title,
@@ -121,7 +161,7 @@ export default function EraPage({ params }: { params: { era: string } }) {
             {era.name}
           </h1>
           <p className="text-lg leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif" }}>
-            {era.desc}
+            {eraIntros[eraId]}
           </p>
         </div>
 
@@ -197,33 +237,12 @@ export default function EraPage({ params }: { params: { era: string } }) {
 
         {/* Companion Guide CTA */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
-          <a
-            href="https://lancing1.gumroad.com/l/the-complete-collection"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track-location="era-bottom"
-            className="block rounded-xl p-5 transition-all duration-300 guide-card-hover"
-            style={{ background: 'rgba(192,161,114,0.04)', border: '1px solid rgba(192,161,114,0.12)', textDecoration: 'none' }}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(192,161,114,0.1)', border: '1px solid rgba(192,161,114,0.15)' }}>
-                <BookOpen size={20} style={{ color: '#c0a172' }} />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm font-semibold" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
-                  The Companion Guide
-                </p>
-                <p className="text-sm mt-0.5" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif" }}>
-                  Seven eras of philosophy in one volume — reading lists, key terms, journal prompts · $19.99
-                </p>
-              </div>
-              <div className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold"
-                style={{ background: `linear-gradient(135deg, ${era.color}, ${era.color}cc)`, color: '#fff' }}>
-                <ShoppingBag size={13} /> View Guide <ExternalLink size={11} style={{ opacity: 0.6 }} />
-              </div>
-            </div>
-          </a>
+          <GuideCard
+            location="era-bottom"
+            accent={era.color}
+            eyebrow={`The ${era.name} chapter`}
+            blurb={eraChapterBlurbs[eraId]}
+          />
         </section>
 
         {/* Free chapter by email (downloads appear as soon as they sign up) */}

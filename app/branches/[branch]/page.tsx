@@ -20,12 +20,17 @@ function getBranchFromSlug(slug: string) {
   return branches.find((b) => b.id.toLowerCase().replace(/\s+/g, '-') === slug);
 }
 
+// "Ethics is the study of right and wrong...": an answer-first sentence built from the branch's own description.
+function definitionOf(branch: { name: string; desc: string }): string {
+  return `${branch.name} is ${branch.desc.charAt(0).toLowerCase()}${branch.desc.slice(1)}`;
+}
+
 export function generateMetadata({ params }: { params: { branch: string } }): Metadata {
   const branch = getBranchFromSlug(params.branch);
   if (!branch) return { title: 'Branch Not Found' };
 
   const title = `${branch.name} — ${branch.question}`;
-  const description = `${branch.desc} Explore philosophers who work in ${branch.name.toLowerCase()}.`;
+  const description = `${definitionOf(branch)} Explore philosophers who work in ${branch.name.toLowerCase()}.`;
 
   return {
     title,
@@ -77,7 +82,7 @@ export default function BranchPage({ params }: { params: { branch: string } }) {
           </h1>
           <p className="text-lg italic mb-3" style={{ color: '#c0a172' }}>{branch.question}</p>
           <p className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif" }}>
-            {branch.desc}
+            {definitionOf(branch)}
           </p>
         </div>
 
