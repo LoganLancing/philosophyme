@@ -650,7 +650,7 @@ export const schoolDetails: Record<string, SchoolDetail> = {
       },
       {
         title: 'The veil of ignorance',
-        text: 'John Rawls revived the tradition in 1971. He asked what principles of justice people would choose if they did not know their place in society, their talents or their social standing, and argued they would choose equal basic liberties and allow inequalities only when they benefit the least advantaged.',
+        text: 'John Rawls revived the tradition in 1971. He asked what principles of justice people would choose if they did not know their place in society, their talents or their social standing, and argued they would choose equal basic liberties for all, fair equality of opportunity for offices and positions, and inequalities only when they benefit the least advantaged.',
       },
     ],
     keyTexts: [
