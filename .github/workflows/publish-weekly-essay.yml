@@ -1,0 +1,43 @@
+name: Publish weekly essay
+
+# Merges the week's essay pull request at 6:00am Sunday, America/Chicago.
+# GitHub schedules run in UTC, so this fires at 11, 12 and 13 UTC on Sundays
+# (6am is 11 UTC in summer and 12 UTC in winter; 13 UTC is a backup in case
+# GitHub starts late). The script checks Chicago time and publishes at most once.
+# See .github/scripts/publish-essays.mjs for exactly what gets merged.
+
+on:
+  schedule:
+    - cron: '0 11,12,13 * * 0'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Only report what would be published'
+        type: boolean
+        default: true
+  pull_request:
+    paths:
+      - '.github/scripts/publish-essays.mjs'
+      - '.github/workflows/publish-weekly-essay.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: publish-weekly-essay
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Publish due essays
+        run: node .github/scripts/publish-essays.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}

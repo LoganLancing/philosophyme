@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CommunityClient from '@/components/CommunityClient';
+import { getEssays } from '@/lib/essays';
 
 export const metadata: Metadata = {
   title: 'Community',
@@ -26,7 +27,7 @@ export default function CommunityPage() {
               Philosophy has always been a conversation. This page gives you a place to join in. Submit an essay, share feedback, or suggest ways to improve the site.
             </p>
           </div>
-          <CommunityClient />
+          <CommunityClient essays={getEssays()} />
         </div>
       </main>
       <Footer />
