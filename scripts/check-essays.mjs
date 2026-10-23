@@ -65,7 +65,11 @@ function checkFile(file, philosophers, seen) {
     else if (p.death === 0) errors.push(`${p.name} is living; imagined essays use historical philosophers only`);
     if (!nonEmpty(e.topic)) errors.push('topic is required');
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date ?? '')) errors.push('date must be a full YYYY-MM-DD');
-    else if (new Date(`${e.date}T12:00:00Z`).getUTCDay() !== 0) errors.push('date must be a Sunday');
+    else {
+      const d = new Date(`${e.date}T12:00:00Z`);
+      if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== e.date) errors.push('date is not a real calendar date');
+      else if (d.getUTCDay() !== 0) errors.push('date must be a Sunday');
+    }
     if ('author' in e || 'bio' in e) errors.push('imagined essays must not have author or bio (the page credits PhilosophyMe)');
 
     const all = [e.title, e.excerpt, e.topic, ...(e.tags ?? []), ...(e.sections ?? []).flatMap((s) => [s.heading ?? '', s.text ?? ''])].join('\n');
