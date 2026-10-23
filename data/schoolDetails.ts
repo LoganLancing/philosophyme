@@ -1,9 +1,9 @@
 import type { Faq } from './types';
 
 // Extra content for school pages, keyed by school id (see schools.ts).
-// Every school has a one-sentence definition that opens its page. The longer sections
-// (key ideas, key texts, influence today, FAQ) are being added a few schools at a time,
-// starting with the schools that already get search impressions.
+// Every school has a one-sentence definition that opens its page, followed by key ideas,
+// key texts, its influence today and a short FAQ. The page renders each section only when
+// it is present, so a new school can start with just a definition.
 
 export interface SchoolDetail {
   definition: string;
@@ -16,6 +16,47 @@ export interface SchoolDetail {
 export const schoolDetails: Record<string, SchoolDetail> = {
   Stoicism: {
     definition: 'Stoicism is a school of philosophy founded in Athens around 300 BCE that teaches that virtue is the only true good and that peace of mind comes from accepting what we cannot control.',
+    keyIdeas: [
+      {
+        title: 'The dichotomy of control',
+        text: 'Epictetus opens his Handbook by dividing things into what is up to us (our judgments, intentions, desires and aversions) and what is not (our bodies, property, reputation and position). Peace of mind comes from caring about the first and accepting the second.',
+      },
+      {
+        title: 'Virtue is the only good',
+        text: 'For the Stoics, wisdom, justice, courage and moderation are the only true goods. Health, wealth and status are "preferred indifferents": reasonable to choose, but unable to make a life good or bad.',
+      },
+      {
+        title: 'Living according to nature',
+        text: 'The Stoics believed the universe is ordered by reason, which they called logos. Humans share in that reason, so living well means living rationally and in tune with the order of the whole, including our place in the human community.',
+      },
+      {
+        title: 'Emotions come from judgments',
+        text: 'Destructive passions such as anger, fear and grief follow from false judgments about what is good or bad. Examine the judgment and the passion loses its grip. The Stoics did not aim to feel nothing: they welcomed good feelings, such as joy, that rest on sound judgment.',
+      },
+    ],
+    keyTexts: [
+      'Cleanthes, Hymn to Zeus (3rd century BCE)',
+      'Seneca, Letters to Lucilius (c. 65 CE)',
+      'Epictetus, Discourses, recorded by Arrian (early 2nd century CE)',
+      'Epictetus, Enchiridion (Handbook)',
+      'Marcus Aurelius, Meditations (c. 170–180 CE)',
+      'Diogenes Laertius, Lives of the Eminent Philosophers, Book 7 (3rd century CE)',
+    ],
+    today: 'Stoicism has had a large popular revival in the 21st century through books, podcasts and events such as Stoic Week. Cognitive behavioral therapy draws openly on Stoic ideas: Albert Ellis and Aaron Beck both credited the Stoic insight that our beliefs about events shape our emotional reactions to them. Scholars point out that modern self-help Stoicism often leaves out parts of the ancient system, especially its physics and its emphasis on duty to the wider community.',
+    faq: [
+      {
+        question: 'What is Stoicism in simple terms?',
+        answer: 'Stoicism teaches that a good life comes from good character, not from luck or possessions. Focus on what is in your control, your own choices and judgments, and meet everything else with calm acceptance.',
+      },
+      {
+        question: 'Who were the most famous Stoics?',
+        answer: 'Zeno of Citium founded the school in Athens around 300 BCE, teaching in the Stoa Poikile, or Painted Porch, which gave the school its name. Cleanthes and Chrysippus developed it. The best-known Stoics today are the Romans: Seneca, a statesman and writer; Epictetus, a formerly enslaved teacher; and Marcus Aurelius, a Roman emperor.',
+      },
+      {
+        question: 'Does Stoicism mean suppressing your emotions?',
+        answer: 'No. The everyday word "stoic" suggests a stiff upper lip, but the ancient Stoics aimed to free themselves from emotions built on false judgments, such as rage or panic, while welcoming emotions grounded in good judgment, such as joy.',
+      },
+    ],
   },
   Platonism: {
     definition: 'Platonism is the philosophy of Plato and his followers, built on the view that the most real things are eternal, unchanging Forms that the physical world only imperfectly copies.',
@@ -63,9 +104,91 @@ export const schoolDetails: Record<string, SchoolDetail> = {
   },
   Aristotelianism: {
     definition: 'Aristotelianism is the tradition that follows Aristotle in grounding knowledge in observation and logic and in treating the good life as the full development of human nature.',
+    keyIdeas: [
+      {
+        title: 'Form and matter',
+        text: 'Aristotle rejected Plato\'s separate realm of Forms. Every individual thing is a union of matter, what it is made of, and form, what makes it the kind of thing it is. A bronze statue is bronze given the shape of a statue; a living thing\'s form is its soul.',
+      },
+      {
+        title: 'The four causes',
+        text: 'To explain anything fully, Aristotle said, we need four answers: what it is made of (the material cause), what it is (the formal cause), what brought it about (the efficient cause) and what it is for (the final cause, or telos).',
+      },
+      {
+        title: 'Logic',
+        text: 'Aristotle created the first formal system of logic, built around the syllogism: all humans are mortal; Socrates is a human; therefore Socrates is mortal. His logic remained the standard in Europe for some two thousand years.',
+      },
+      {
+        title: 'Virtue and flourishing',
+        text: 'The goal of human life is eudaimonia, often translated as flourishing. We reach it by developing virtues, stable traits of character that lie in a mean between excess and deficiency, such as courage between cowardice and rashness, guided by practical wisdom.',
+      },
+    ],
+    keyTexts: [
+      'Aristotle, Categories',
+      'Aristotle, Prior Analytics',
+      'Aristotle, Physics',
+      'Aristotle, Metaphysics',
+      'Aristotle, Nicomachean Ethics',
+      'Aristotle, Politics',
+      'Thomas Aquinas, Summa Theologica (1265–1274)',
+    ],
+    today: 'Aristotle\'s ethics returned to the center of moral philosophy with the revival of virtue ethics, sparked in part by G.E.M. Anscombe\'s 1958 essay "Modern Moral Philosophy" and Alasdair MacIntyre\'s After Virtue (1981). Martha Nussbaum drew on Aristotle in developing the capabilities approach to human development. His logic, biology and political thought are still studied, and the idea that a thing\'s nature sets the standard for how it should flourish remains a live position.',
+    faq: [
+      {
+        question: 'What is the main idea of Aristotelianism?',
+        answer: 'That we understand the world by studying the things in it, and that each thing, a human being included, has a nature and a purpose. A good human life is one in which our capacities, above all reason, are fully developed.',
+      },
+      {
+        question: 'How is Aristotle different from Plato?',
+        answer: 'Plato placed true reality in eternal Forms beyond the physical world. Aristotle held that forms exist only in particular things, so knowledge has to begin with observing the world around us.',
+      },
+      {
+        question: 'How did Aristotle influence the Middle Ages?',
+        answer: 'His works were preserved and studied by Islamic philosophers such as Avicenna and Averroes and by the Jewish philosopher Maimonides, then translated into Latin in the 12th and 13th centuries. Thomas Aquinas combined Aristotle\'s philosophy with Christian theology, and Aristotle became the backbone of the medieval university curriculum.',
+      },
+    ],
   },
   Epicureanism: {
     definition: 'Epicureanism is a school founded by Epicurus around 307 BCE that teaches that the goal of life is pleasure understood as tranquility: freedom from pain in the body and from fear in the mind.',
+    keyIdeas: [
+      {
+        title: 'Pleasure as freedom from pain',
+        text: 'Epicurus called pleasure the beginning and end of the happy life, but by pleasure he meant freedom from pain in the body and from disturbance in the mind. In his Letter to Menoeceus he insists he does not mean the pleasures of the profligate.',
+      },
+      {
+        title: 'Three kinds of desire',
+        text: 'Epicurus sorted desires into natural and necessary ones (food, shelter, friendship), natural but unnecessary ones (fine food), and empty ones (fame, power, endless wealth). Satisfy the first, enjoy the second in moderation, and let go of the third. Friendship, he said, is the greatest thing wisdom provides for a happy life.',
+      },
+      {
+        title: 'Death is nothing to us',
+        text: 'Since death is the end of all sensation, it cannot harm us: when we exist, death is not present, and when death is present, we do not exist. Lucretius added that we do not grieve over the endless time before we were born, so we need not grieve over the time after we die.',
+      },
+      {
+        title: 'Atoms and the void',
+        text: 'Following Democritus, Epicurus held that everything is made of atoms moving through empty space. The gods exist but live untroubled lives and do not interfere in the world, so there is nothing to fear from them. He added a small, unpredictable swerve in atomic motion, partly to leave room for free will.',
+      },
+    ],
+    keyTexts: [
+      'Epicurus, Letter to Herodotus',
+      'Epicurus, Letter to Menoeceus',
+      'Epicurus, Principal Doctrines',
+      'Lucretius, On the Nature of Things (1st century BCE)',
+      'Diogenes Laertius, Lives of the Eminent Philosophers, Book 10 (3rd century CE)',
+    ],
+    today: 'Lucretius\'s poem was rediscovered in 1417 by the Italian humanist Poggio Bracciolini, and its atomism fed into early modern science through thinkers such as Pierre Gassendi. Thomas Jefferson wrote in an 1819 letter, "I too am an Epicurean." Philosophers still debate Epicurus\'s arguments about death, and his advice to want less and value friends has found a new audience alongside the Stoic revival.',
+    faq: [
+      {
+        question: 'Is Epicureanism the same as hedonism?',
+        answer: 'It is a form of hedonism, since it holds that pleasure is the good, but not in the modern sense of indulgence. Epicurus taught that simple food, good friends and a calm mind bring more lasting pleasure than luxury or excess.',
+      },
+      {
+        question: 'What did Epicurus believe about the gods?',
+        answer: 'He believed the gods exist but live in perfect tranquility, untouched by human affairs. They do not reward or punish us, so fear of them is unnecessary.',
+      },
+      {
+        question: 'How is Epicureanism different from Stoicism?',
+        answer: 'Both aimed at peace of mind. Epicureans saw pleasure as the goal of life, while Stoics held that virtue is the only good. Epicureans advised stepping back from politics into a community of friends; Stoics saw public duty as part of living according to nature.',
+      },
+    ],
   },
   Skepticism: {
     definition: 'Skepticism is the philosophical position that certain knowledge is hard or impossible to reach and, in its ancient form, the practice of suspending judgment to find peace of mind.',
@@ -112,6 +235,47 @@ export const schoolDetails: Record<string, SchoolDetail> = {
   },
   Rationalism: {
     definition: 'Rationalism is the view that reason, rather than sense experience, is the main source of knowledge, and that some truths can be known independently of experience.',
+    keyIdeas: [
+      {
+        title: 'Innate ideas',
+        text: 'Rationalists held that the mind is born with certain ideas or principles, such as the ideas of God, of substance and of mathematical truth, that experience could never supply. Experience may prompt us to notice them, but it does not create them.',
+      },
+      {
+        title: 'The method of doubt',
+        text: 'Descartes resolved to doubt everything that could possibly be doubted. One thing survived: in the very act of doubting, he had to exist. "I think, therefore I am" became the foundation from which he tried to rebuild knowledge.',
+      },
+      {
+        title: 'Clear and distinct ideas',
+        text: 'Descartes argued that whatever the intellect perceives clearly and distinctly is true, guaranteed by a God who is no deceiver. Truth is reached by reasoning carefully from such ideas, step by step, as in geometry.',
+      },
+      {
+        title: 'Reality as a rational system',
+        text: 'Spinoza argued that there is only one substance, which he called God or Nature, and set out his Ethics in geometrical form, with definitions, axioms and proofs. Leibniz held that the world is made of simple substances called monads and that nothing happens without a sufficient reason.',
+      },
+    ],
+    keyTexts: [
+      'René Descartes, Discourse on the Method (1637)',
+      'René Descartes, Meditations on First Philosophy (1641)',
+      'Nicolas Malebranche, The Search After Truth (1674–75)',
+      'Baruch Spinoza, Ethics (1677)',
+      'Gottfried Wilhelm Leibniz, New Essays on Human Understanding (written 1704, published 1765)',
+      'Gottfried Wilhelm Leibniz, Monadology (1714)',
+    ],
+    today: 'Kant tried to settle the contest between rationalism and empiricism in the Critique of Pure Reason (1781), arguing that knowledge needs both experience and concepts the mind supplies. The rationalists\' question lives on: Noam Chomsky\'s argument that children are born with a capacity for language is often described as a modern rationalist position, and philosophers still debate whether, and how, some truths can be known a priori, independent of experience.',
+    faq: [
+      {
+        question: 'What is rationalism in simple terms?',
+        answer: 'Rationalism is the view that reason, not the senses, is our most reliable path to knowledge. Rationalists point to mathematics: we can prove that the angles of a triangle add up to two right angles by reasoning alone, without measuring a single triangle.',
+      },
+      {
+        question: 'Who were the continental rationalists?',
+        answer: 'René Descartes, Baruch Spinoza and Gottfried Wilhelm Leibniz, writing in the 17th and early 18th centuries. They are called continental because they worked in mainland Europe, in contrast to the British empiricists Locke, Berkeley and Hume.',
+      },
+      {
+        question: 'Is philosophical rationalism the same as being rational?',
+        answer: 'No. Everyone who values reasoning is rational in the everyday sense. Rationalism is a specific claim about where knowledge comes from: that reason can reach important truths independently of experience. Empiricists value reason just as much but deny that claim.',
+      },
+    ],
   },
   Empiricism: {
     definition: 'Empiricism is the view that all knowledge comes from sense experience, so the mind starts out with no built-in ideas.',
@@ -202,27 +366,361 @@ export const schoolDetails: Record<string, SchoolDetail> = {
   },
   Existentialism: {
     definition: 'Existentialism is a 19th- and 20th-century philosophy that starts from the individual\'s lived experience and holds that people must create meaning through their own free choices.',
+    keyIdeas: [
+      {
+        title: 'Existence precedes essence',
+        text: 'Sartre\'s slogan means that human beings have no fixed nature or purpose given in advance. We first exist, and then define ourselves through what we choose and do.',
+      },
+      {
+        title: 'Freedom, anguish and bad faith',
+        text: 'For Sartre we are "condemned to be free": even refusing to choose is a choice, and we are responsible for who we become. That freedom brings anguish. Bad faith is lying to ourselves about it, for example by claiming we had no choice or by hiding behind a social role.',
+      },
+      {
+        title: 'The individual and the leap of faith',
+        text: 'Kierkegaard, often called the first existentialist, argued that the most important truths are lived, not proven. Faith, in his view, is a passionate personal commitment, a leap that reason alone cannot make, and each person must make it for themselves.',
+      },
+      {
+        title: 'Freedom in a situation',
+        text: 'Simone de Beauvoir argued that freedom is always exercised in a situation shaped by other people, history and society. In The Second Sex she wrote, "One is not born, but rather becomes, a woman," arguing that womanhood had been defined by others rather than chosen.',
+      },
+    ],
+    keyTexts: [
+      'Søren Kierkegaard, Fear and Trembling (1843)',
+      'Søren Kierkegaard, Concluding Unscientific Postscript (1846)',
+      'Friedrich Nietzsche, Thus Spoke Zarathustra (1883–85)',
+      'Martin Heidegger, Being and Time (1927)',
+      'Jean-Paul Sartre, Being and Nothingness (1943)',
+      'Jean-Paul Sartre, Existentialism Is a Humanism (1946)',
+      'Simone de Beauvoir, The Second Sex (1949)',
+    ],
+    today: 'Existentialism peaked in postwar France, when Sartre and Beauvoir were public figures, and it shaped novels, plays, film and psychotherapy, including the school known as existential therapy. As an academic movement it gave way to structuralism and later French thought, but its questions about freedom, meaning and authenticity remain among the most widely read in philosophy. Its influence also runs through feminist thought by way of Beauvoir and anticolonial thought by way of Frantz Fanon.',
+    faq: [
+      {
+        question: 'What is existentialism in simple terms?',
+        answer: 'A philosophy that starts from the individual person facing real choices. It holds that life has no meaning handed to us in advance, so we create meaning through how we choose to live, and we are responsible for those choices.',
+      },
+      {
+        question: 'Who founded existentialism?',
+        answer: 'Søren Kierkegaard, writing in the 1840s, is usually called its father, with Nietzsche as another forerunner. The word itself spread in the 1940s, and Sartre was the first major philosopher to embrace it. Heidegger and Albert Camus, often grouped with the existentialists, both rejected the label.',
+      },
+      {
+        question: 'Is existentialism pessimistic?',
+        answer: 'Critics often said so, because it dwells on anxiety, death and the absence of built-in meaning. Sartre answered in Existentialism Is a Humanism that it is a philosophy of action and hope, since it holds that people are free to make themselves.',
+      },
+    ],
   },
   Phenomenology: {
     definition: 'Phenomenology is a philosophical method, founded by Edmund Husserl in the early 20th century, that describes the structures of conscious experience as it is lived, before any theory about it.',
+    keyIdeas: [
+      {
+        title: 'To the things themselves',
+        text: 'Husserl called on philosophers to set aside theories and assumptions and describe experience exactly as it presents itself. A careful description of how things appear, he believed, could give philosophy a rigorous foundation.',
+      },
+      {
+        title: 'Intentionality',
+        text: 'Consciousness is always consciousness of something. Every act of perceiving, remembering, imagining or wanting is directed at an object, and phenomenology studies the structures of that directedness. Husserl took the idea from his teacher Franz Brentano.',
+      },
+      {
+        title: 'Bracketing',
+        text: 'Husserl asked philosophers to suspend, or bracket, the everyday assumption that the world exists independently of us. The point is not to deny the world but to attend to how it appears in experience. He borrowed the Greek skeptics\' word for this suspension, epoché.',
+      },
+      {
+        title: 'Being-in-the-world and the lived body',
+        text: 'Heidegger argued that we are not detached minds looking at objects but beings already caught up in a world of tasks, tools and other people. Merleau-Ponty stressed that perception happens through the living body, so we know the world first through movement and touch, not abstract thought.',
+      },
+    ],
+    keyTexts: [
+      'Edmund Husserl, Logical Investigations (1900–01)',
+      'Edmund Husserl, Ideas I (1913)',
+      'Martin Heidegger, Being and Time (1927)',
+      'Edmund Husserl, Cartesian Meditations (1931)',
+      'Jean-Paul Sartre, Being and Nothingness (1943)',
+      'Maurice Merleau-Ponty, Phenomenology of Perception (1945)',
+      'Emmanuel Levinas, Totality and Infinity (1961)',
+    ],
+    today: 'Phenomenology shaped existentialism, hermeneutics and deconstruction, and it remains one of the main traditions of continental philosophy. It has practical uses too: researchers in nursing, psychology and education use phenomenological methods to study lived experience, and cognitive scientists working on embodied cognition draw on Merleau-Ponty.',
+    faq: [
+      {
+        question: 'What is phenomenology in simple terms?',
+        answer: 'The careful description of experience from the inside: what it is like to see, remember, feel or act, before we explain it with science or theory.',
+      },
+      {
+        question: 'What is the difference between phenomenology and existentialism?',
+        answer: 'Phenomenology is a method for describing experience. Existentialism is a set of views about human freedom, meaning and choice. Many existentialists, including Sartre and Beauvoir, used the phenomenological method to reach their conclusions.',
+      },
+      {
+        question: 'Who founded phenomenology?',
+        answer: 'Edmund Husserl, a German philosopher trained in mathematics, in the first years of the 20th century. His student Martin Heidegger took it in a new direction, and French thinkers such as Sartre, Merleau-Ponty and Levinas developed it further.',
+      },
+    ],
   },
   'Analytic Philosophy': {
     definition: 'Analytic philosophy is the tradition, dominant in English-speaking universities since the early 20th century, that works on philosophical problems through logic, careful argument and the analysis of language.',
+    keyIdeas: [
+      {
+        title: 'Analysis',
+        text: 'Philosophical problems are tackled by breaking concepts and claims into their parts and examining each closely. Bertrand Russell\'s theory of descriptions (1905) became a model, showing how a sentence such as "The present King of France is bald" can be meaningful though no such king exists.',
+      },
+      {
+        title: 'The turn to language',
+        text: 'Many analytic philosophers held that philosophical puzzles arise from misunderstandings of how language works. The early Wittgenstein looked for the logical structure behind meaningful language; the later Wittgenstein argued that meaning lies in how words are used in ordinary life.',
+      },
+      {
+        title: 'Logic as a tool',
+        text: 'Building on Gottlob Frege\'s new logic, analytic philosophers made formal logic a central method, using it to clarify arguments and to study meaning, truth and reasoning.',
+      },
+      {
+        title: 'Common sense and science',
+        text: 'G.E. Moore defended common-sense beliefs, such as that he had two hands, against skeptical and idealist arguments. Quine argued that philosophy is continuous with science rather than a separate source of knowledge, and Karl Popper made falsifiability the test of a scientific theory.',
+      },
+    ],
+    keyTexts: [
+      'Gottlob Frege, "On Sense and Reference" (1892)',
+      'Bertrand Russell, "On Denoting" (1905)',
+      'Ludwig Wittgenstein, Tractatus Logico-Philosophicus (1921)',
+      'Karl Popper, The Logic of Scientific Discovery (1934)',
+      'W.V.O. Quine, "Two Dogmas of Empiricism" (1951)',
+      'Ludwig Wittgenstein, Philosophical Investigations (1953)',
+      'Saul Kripke, Naming and Necessity (1980)',
+    ],
+    today: 'Analytic philosophy is the dominant style in universities in the United States, Britain, Australia and Scandinavia, and it has spread widely elsewhere. Its scope has grown far beyond language and logic to ethics, political philosophy, the mind, metaphysics and applied fields such as bioethics. The old divide with continental philosophy has softened, though differences of style and method remain.',
+    faq: [
+      {
+        question: 'What is analytic philosophy in simple terms?',
+        answer: 'A style of philosophy that prizes clarity, precise argument and logic. It usually works on one well-defined problem at a time and tries to state every claim so that it can be tested and criticized.',
+      },
+      {
+        question: 'What is the difference between analytic and continental philosophy?',
+        answer: 'Analytic philosophy grew mainly in Britain, Austria and the United States, with an emphasis on logic, language and science. Continental philosophy grew mainly in Germany and France, through phenomenology, existentialism and critical theory, with more attention to history, culture and lived experience. Many philosophers today draw on both.',
+      },
+      {
+        question: 'Who founded analytic philosophy?',
+        answer: 'Gottlob Frege, Bertrand Russell and G.E. Moore are usually named as its founders, around the turn of the 20th century, with Ludwig Wittgenstein close behind.',
+      },
+    ],
   },
   Marxism: {
     definition: 'Marxism is the body of thought begun by Karl Marx and Friedrich Engels that explains history through economic forces and class struggle and predicts that capitalism will give way to communism.',
+    keyIdeas: [
+      {
+        title: 'Historical materialism',
+        text: 'Marx held that the way a society produces what it needs, its mode of production, shapes its laws, politics, religion and ideas. History moves through stages, such as ancient slave society, feudalism and capitalism, as the forces of production develop.',
+      },
+      {
+        title: 'Class struggle',
+        text: '"The history of all hitherto existing society is the history of class struggles," the Communist Manifesto declares. Under capitalism the main classes are the bourgeoisie, who own the means of production, and the proletariat, who must sell their labor to live.',
+      },
+      {
+        title: 'Exploitation and alienation',
+        text: 'Marx argued that workers produce more value than they are paid in wages, and that this surplus value is the source of profit. He also described workers under capitalism as alienated: cut off from what they make, from the work itself, from one another and from their own human potential.',
+      },
+      {
+        title: 'Revolution and communism',
+        text: 'Marx predicted that capitalism\'s crises and conflicts would lead workers to overthrow it, bringing a classless society in which the means of production are held in common. He said relatively little about how such a society would actually work.',
+      },
+    ],
+    keyTexts: [
+      'Karl Marx, Economic and Philosophic Manuscripts of 1844 (published 1932)',
+      'Karl Marx and Friedrich Engels, The German Ideology (written 1845–46)',
+      'Karl Marx and Friedrich Engels, The Communist Manifesto (1848)',
+      'Karl Marx, Capital, Volume I (1867)',
+      'Friedrich Engels, Socialism: Utopian and Scientific (1880)',
+      'Antonio Gramsci, Prison Notebooks (written 1929–35)',
+      'Herbert Marcuse, One-Dimensional Man (1964)',
+    ],
+    today: 'Marxism inspired mass political movements and the governments of the Soviet Union, China and other states, whose records, including famines, political repression and the deaths of millions, weigh heavily in how it is judged. Defenders often argue that those states departed from Marx\'s own ideas; critics, from Austrian-school economists to the philosopher Karl Popper, argue that its predictions failed and its economic theory is mistaken. In universities, Marxist ideas still influence sociology, history, literary theory and critical theory, and debates over inequality keep its questions about capitalism alive.',
+    faq: [
+      {
+        question: 'What is Marxism in simple terms?',
+        answer: 'A theory that explains history and society through economics and the conflict between classes. Marx argued that capitalism divides society into owners and workers, that this conflict would eventually bring capitalism down, and that a classless communist society would follow.',
+      },
+      {
+        question: 'What is the difference between Marxism, socialism and communism?',
+        answer: 'Socialism is a broad family of ideas in which the means of production are owned or controlled socially rather than privately, and it includes many non-Marxist forms. Marxism is Marx\'s particular theory of history and capitalism. Communism, in Marx\'s sense, is the classless, stateless society he expected to follow capitalism; the word also names the parties and states that claimed his legacy.',
+      },
+      {
+        question: 'Was Marx a philosopher or an economist?',
+        answer: 'Both, as well as a historian, journalist and political activist. He trained in philosophy, wrote his doctoral dissertation on Democritus and Epicurus, and began as a critic of Hegel before turning to political economy in Capital.',
+      },
+    ],
   },
   'Classical Liberalism': {
     definition: 'Classical liberalism is the political philosophy that defends individual liberty, the rule of law, private property and free markets, with government limited to protecting rights.',
+    keyIdeas: [
+      {
+        title: 'Natural rights',
+        text: 'John Locke argued that people have rights to life, liberty and property that exist before any government. The Declaration of Independence echoes this with its "unalienable Rights" to "Life, Liberty and the pursuit of Happiness."',
+      },
+      {
+        title: 'Consent and limited power',
+        text: 'Governments are legitimate only with the consent of the governed, and their job is to protect rights. To keep power from being abused, Montesquieu and James Madison argued for dividing it among separate branches that check one another.',
+      },
+      {
+        title: 'Free markets',
+        text: 'Adam Smith argued in The Wealth of Nations that when people are free to trade, the pursuit of their own interest, disciplined by competition, tends to promote the wealth of the whole society, as if led by an "invisible hand." In the 20th century, Friedrich Hayek argued that prices carry knowledge that no central planner could ever gather.',
+      },
+      {
+        title: 'Freedom of thought and expression',
+        text: 'John Stuart Mill\'s harm principle holds that society may restrict a person\'s liberty only to prevent harm to others. Mill defended free speech on the grounds that silencing an opinion robs everyone of the chance to test it against the truth.',
+      },
+    ],
+    keyTexts: [
+      'John Locke, Second Treatise of Government (1689)',
+      'Montesquieu, The Spirit of the Laws (1748)',
+      'Adam Smith, The Wealth of Nations (1776)',
+      'Alexander Hamilton, James Madison and John Jay, The Federalist Papers (1787–88)',
+      'John Stuart Mill, On Liberty (1859)',
+      'Friedrich Hayek, The Road to Serfdom (1944)',
+      'Robert Nozick, Anarchy, State, and Utopia (1974)',
+    ],
+    today: 'Classical liberal principles shaped the American founding and the constitutions of most modern democracies: rights written into law, elected and limited government, and protected freedoms of speech and religion. In the 20th century, "liberal" came to mean something different in the United States, so thinkers such as Hayek and Ludwig von Mises are now usually described as classical liberals or libertarians. How far governments should regulate markets and provide welfare remains the main dividing line between classical liberals, modern liberals and socialists.',
+    faq: [
+      {
+        question: 'What is classical liberalism in simple terms?',
+        answer: 'A political philosophy that puts individual freedom first. Government should protect people\'s rights to life, liberty and property, rule through clear and equal laws, and otherwise leave people free to live, speak, worship and trade as they choose.',
+      },
+      {
+        question: 'How is classical liberalism different from modern liberalism?',
+        answer: 'Both value individual rights. Classical liberals want government limited mainly to protecting rights and enforcing contracts. Modern liberals, especially in the United States, support a larger role for government in regulating the economy and providing social services.',
+      },
+      {
+        question: 'Who were the main classical liberal thinkers?',
+        answer: 'John Locke, Montesquieu and Adam Smith in the 17th and 18th centuries; American founders such as Thomas Jefferson and James Madison; John Stuart Mill in the 19th century; and Friedrich Hayek, Ludwig von Mises and Robert Nozick in the 20th.',
+      },
+    ],
   },
   Conservatism: {
     definition: 'Conservatism is the political philosophy that values tradition, inherited institutions and gradual change, and distrusts plans to remake society from abstract principles.',
+    keyIdeas: [
+      {
+        title: 'Inherited wisdom',
+        text: 'Edmund Burke argued that institutions and customs that have lasted for generations carry practical knowledge no single person could work out alone. He described society as a partnership "between those who are living, those who are dead, and those who are to be born."',
+      },
+      {
+        title: 'Reform, not revolution',
+        text: 'Conservatives do not oppose all change. Burke wrote that "a state without the means of some change is without the means of its conservation." But they favor reform that repairs what exists over plans to rebuild society from scratch, as the French revolutionaries attempted.',
+      },
+      {
+        title: 'Wariness of abstract plans',
+        text: 'Michael Oakeshott criticized "rationalism in politics": the belief that society can be run from a blueprint of abstract principles. He argued that political skill, like cooking or carpentry, depends on practical knowledge learned through experience rather than from a book.',
+      },
+      {
+        title: 'Civil society',
+        text: 'Alexis de Tocqueville noticed that Americans formed associations for every purpose, and he saw these local institutions as a check on both central power and isolated individualism. Conservatives generally see families, churches, towns and voluntary groups, Burke\'s "little platoons," as the ground of social life.',
+      },
+    ],
+    keyTexts: [
+      'Edmund Burke, Reflections on the Revolution in France (1790)',
+      'Alexis de Tocqueville, Democracy in America (1835–40)',
+      'Michael Oakeshott, "Rationalism in Politics" (1947)',
+      'Russell Kirk, The Conservative Mind (1953)',
+      'Michael Oakeshott, "On Being Conservative" (1956)',
+      'Roger Scruton, The Meaning of Conservatism (1980)',
+    ],
+    today: 'Conservatism is one of the major political traditions in Western democracies, though conservative parties differ widely, and the label covers traditionalists, free-market conservatives and nationalists who often disagree with one another. Roger Scruton carried the Burkean tradition into the 21st century as a philosopher. Critics argue that conservatism can protect injustice simply because it is long established; conservatives reply that they defend what has proven to work, not everything that happens to exist.',
+    faq: [
+      {
+        question: 'What is conservatism in simple terms?',
+        answer: 'A political philosophy that values tradition, stable institutions and careful, gradual change. Conservatives believe the habits and institutions a society has built over time hold wisdom that should not be thrown away for untested theories.',
+      },
+      {
+        question: 'Who is the father of modern conservatism?',
+        answer: 'Edmund Burke, the Irish-born British statesman, is usually given that title, mainly for Reflections on the Revolution in France (1790), in which he predicted, years before the Terror, that the revolution would end in violence and military rule.',
+      },
+      {
+        question: 'How is conservatism different from classical liberalism?',
+        answer: 'Both defend the rule of law and limited government, and in practice they are often allies. Classical liberals start from individual rights and freedom. Conservatives start from tradition, community and inherited institutions, and are warier of building politics on abstract principles, including principles of liberty.',
+      },
+    ],
   },
   'Social Contract': {
     definition: 'Social contract theory is the view that political authority is legitimate because it rests on an agreement, real or hypothetical, among the people it governs.',
+    keyIdeas: [
+      {
+        title: 'The state of nature',
+        text: 'Social contract theorists ask what life would be like without government. Thomas Hobbes thought it would be a war of all against all, in which life is "solitary, poor, nasty, brutish, and short." John Locke thought people would still have natural rights and a natural law, but no impartial judge to enforce them.',
+      },
+      {
+        title: 'Consent',
+        text: 'Government is legitimate because people agree to it, openly or tacitly, in order to escape the problems of the state of nature. Authority comes from the governed, not from divine right or force.',
+      },
+      {
+        title: 'Different contracts, different governments',
+        text: 'Hobbes concluded that people should hand nearly all power to a sovereign strong enough to keep the peace. Locke argued that government holds power only in trust and may be resisted if it violates people\'s rights. Rousseau argued that a legitimate state follows the general will of its citizens as a whole.',
+      },
+      {
+        title: 'The veil of ignorance',
+        text: 'John Rawls revived the tradition in 1971. He asked what principles of justice people would choose if they did not know their place in society, their talents or their social standing, and argued they would choose equal basic liberties and allow inequalities only when they benefit the least advantaged.',
+      },
+    ],
+    keyTexts: [
+      'Thomas Hobbes, Leviathan (1651)',
+      'John Locke, Second Treatise of Government (1689)',
+      'Jean-Jacques Rousseau, The Social Contract (1762)',
+      'John Rawls, A Theory of Justice (1971)',
+      'David Gauthier, Morals by Agreement (1986)',
+      'T.M. Scanlon, What We Owe to Each Other (1998)',
+    ],
+    today: 'Social contract thinking runs through modern constitutions, which often present themselves as the act of "We the People." In philosophy, Rawls made the social contract central again to political theory, and contractualists such as T.M. Scanlon apply the idea to morality itself. Critics including Carole Pateman, in The Sexual Contract (1988), and Charles Mills, in The Racial Contract (1997), argue that the classic theories quietly left women and non-white people out of the agreement.',
+    faq: [
+      {
+        question: 'What is social contract theory in simple terms?',
+        answer: 'The idea that people agree, in fact or in principle, to give up some freedom and obey a government in exchange for protection and order. That agreement is what makes the government\'s authority legitimate.',
+      },
+      {
+        question: 'Did anyone actually sign a social contract?',
+        answer: 'Generally no, and most of the theorists knew it. The contract is usually a thought experiment about what free and reasonable people would agree to, used to test whether a government deserves obedience. Locke appealed to tacit consent, such as living under a government and accepting its protection.',
+      },
+      {
+        question: 'What is the difference between Hobbes and Locke?',
+        answer: 'Hobbes thought life without government would be constant war, so people should accept a powerful sovereign. Locke thought people have natural rights even without government, so government exists to protect those rights and can be replaced if it fails to.',
+      },
+    ],
   },
   Objectivism: {
     definition: 'Objectivism is the philosophy of Ayn Rand, which holds that reality exists independently of the mind, that reason is our only means of knowing it, that rational self-interest is the proper moral purpose of life, and that laissez-faire capitalism is the only just social system.',
+    keyIdeas: [
+      {
+        title: 'Objective reality',
+        text: '"Existence exists," Rand wrote. Reality is what it is regardless of anyone\'s wishes or feelings, and the task of the mind is to perceive it, not to create it.',
+      },
+      {
+        title: 'Reason as the only means of knowledge',
+        text: 'Rand rejected faith, revelation and feeling as sources of knowledge. Knowledge comes from the senses, organized by concepts that reason forms and checks against reality.',
+      },
+      {
+        title: 'Rational self-interest',
+        text: 'In The Virtue of Selfishness, Rand argued that each person\'s own life and happiness is their highest moral purpose, and that people should neither sacrifice themselves to others nor sacrifice others to themselves. She rejected altruism, understood as a duty to live for others.',
+      },
+      {
+        title: 'Laissez-faire capitalism',
+        text: 'Rand argued that the only moral political system bans the initiation of physical force and limits government to protecting individual rights through the police, the armed forces and the courts. She saw full laissez-faire capitalism as the system that follows from those rights.',
+      },
+    ],
+    keyTexts: [
+      'Ayn Rand, The Fountainhead (1943)',
+      'Ayn Rand, Atlas Shrugged (1957)',
+      'Ayn Rand, For the New Intellectual (1961)',
+      'Ayn Rand, The Virtue of Selfishness (1964)',
+      'Ayn Rand, Capitalism: The Unknown Ideal (1966)',
+      'Ayn Rand, Introduction to Objectivist Epistemology (1979)',
+      'Leonard Peikoff, Objectivism: The Philosophy of Ayn Rand (1991)',
+    ],
+    today: 'Rand\'s novels have sold millions of copies and are still widely read, and her ideas influenced the American libertarian movement and many people in business and politics. The Ayn Rand Institute and the Atlas Society continue to promote Objectivism. Most academic philosophers have given her work little attention, and critics such as Robert Nozick challenged her arguments for rational egoism, though a small group of scholars study and defend it.',
+    faq: [
+      {
+        question: 'What is Objectivism in simple terms?',
+        answer: 'Ayn Rand\'s philosophy, which holds that reality is objective, that reason is how we know it, that each person should pursue their own rational self-interest, and that laissez-faire capitalism is the only just social system.',
+      },
+      {
+        question: 'What is the difference between Objectivism and libertarianism?',
+        answer: 'Both support limited government and free markets, and Rand influenced many libertarians. But Objectivism is a complete philosophy, with views on reality, knowledge and ethics, while libertarianism is a political position people reach from many starting points. Rand herself was sharply critical of the libertarian movement.',
+      },
+      {
+        question: 'Did Ayn Rand write philosophy or fiction?',
+        answer: 'Both. Her novels The Fountainhead and Atlas Shrugged dramatize her ideas, and she set out the philosophy directly in essays and nonfiction books such as The Virtue of Selfishness.',
+      },
+    ],
   },
   Scholasticism: {
     definition: 'Scholasticism is the method of the medieval European universities, which used logic and structured debate, built largely on Aristotle, to work through questions of philosophy and theology.',
@@ -270,9 +768,91 @@ export const schoolDetails: Record<string, SchoolDetail> = {
   },
   Humanism: {
     definition: 'Renaissance humanism is the intellectual movement that recovered classical Greek and Latin learning and placed human life, dignity and achievement at the center of study.',
+    keyIdeas: [
+      {
+        title: 'Back to the sources',
+        text: 'Humanists called for a return ad fontes, to the original texts of Greek and Roman antiquity. They searched monastery libraries for lost manuscripts, learned Greek, and read classical authors in their own words rather than through medieval commentaries.',
+      },
+      {
+        title: 'The studia humanitatis',
+        text: 'Humanist education centered on grammar, rhetoric, poetry, history and moral philosophy, the subjects that became known as the humanities. Its aim was to form people who could think, speak and act well in public life.',
+      },
+      {
+        title: 'Human dignity',
+        text: 'Pico della Mirandola\'s Oration on the Dignity of Man (1486) pictured human beings as having no fixed place in creation, free to shape what they become. Humanists celebrated human ability while, for the most part, remaining Christian.',
+      },
+      {
+        title: 'Critical scholarship',
+        text: 'Lorenzo Valla used close study of Latin to show in 1440 that the Donation of Constantine, a document said to grant the popes authority over the western Roman Empire, was a forgery. Erasmus published an edition of the Greek New Testament in 1516 that set a new standard for textual scholarship.',
+      },
+    ],
+    keyTexts: [
+      'Petrarch, Letters on Familiar Matters (14th century)',
+      'Lorenzo Valla, On the Donation of Constantine (1440)',
+      'Pico della Mirandola, Oration on the Dignity of Man (1486)',
+      'Erasmus, The Praise of Folly (1511)',
+      'Thomas More, Utopia (1516)',
+      'Michel de Montaigne, Essays (1580)',
+    ],
+    today: 'Renaissance humanism laid the foundations of the humanities as academic subjects and of modern methods for studying historical texts. It also fed the Reformation: Luther used Erasmus\'s Greek New Testament for his German translation. Today "humanism" more often names a secular outlook that grounds ethics in human reason and experience without religion, a later development that differs from the largely Christian humanism of the Renaissance.',
+    faq: [
+      {
+        question: 'What is Renaissance humanism in simple terms?',
+        answer: 'A movement of scholars and writers, beginning in 14th-century Italy, who revived the study of ancient Greek and Roman texts and put human beings, their abilities and their moral and civic life at the center of learning.',
+      },
+      {
+        question: 'Was Renaissance humanism against religion?',
+        answer: 'No. Most humanists, including Erasmus and Thomas More, were devout Christians. They wanted to renew faith by returning to early sources, such as the Bible in its original languages and the Church Fathers, and they criticized what they saw as the dry methods of Scholasticism.',
+      },
+      {
+        question: 'Who is the father of humanism?',
+        answer: 'Petrarch, the 14th-century Italian poet and scholar, is often given that title for his passion for recovering classical texts and his belief that ancient learning could renew his own age.',
+      },
+    ],
   },
   Utilitarianism: {
     definition: 'Utilitarianism is the ethical theory that the right action is the one that produces the most overall happiness or well-being.',
+    keyIdeas: [
+      {
+        title: 'The principle of utility',
+        text: 'Jeremy Bentham held that the right action is the one that produces the greatest happiness for the greatest number. Only consequences matter morally, and each person\'s happiness counts equally.',
+      },
+      {
+        title: 'Pleasure and pain',
+        text: '"Nature has placed mankind under the governance of two sovereign masters, pain and pleasure," Bentham wrote. He proposed weighing pleasures and pains by their intensity, duration, certainty and other features, a method later called the felicific calculus.',
+      },
+      {
+        title: 'Higher and lower pleasures',
+        text: 'John Stuart Mill argued that some pleasures, such as those of the intellect, are better in kind and not just in amount: "It is better to be a human being dissatisfied than a pig satisfied; better to be Socrates dissatisfied than a fool satisfied."',
+      },
+      {
+        title: 'Impartiality',
+        text: 'Utilitarians insist that everyone\'s well-being counts the same, whoever and wherever they are. Bentham extended concern to animals, writing, "The question is not, Can they reason? nor, Can they talk? but, Can they suffer?" Peter Singer has applied the same reasoning to global poverty and animal welfare.',
+      },
+    ],
+    keyTexts: [
+      'Jeremy Bentham, An Introduction to the Principles of Morals and Legislation (1789)',
+      'John Stuart Mill, Utilitarianism (1861)',
+      'Henry Sidgwick, The Methods of Ethics (1874)',
+      'Peter Singer, "Famine, Affluence, and Morality" (1972)',
+      'Peter Singer, Animal Liberation (1975)',
+      'R.M. Hare, Moral Thinking (1981)',
+    ],
+    today: 'Utilitarian reasoning runs through public life, from cost-benefit analysis in government to debates about rationing health care, and it is one of the three main approaches to ethics taught today, alongside Kantian ethics and virtue ethics. The effective altruism movement grew partly out of Peter Singer\'s arguments. Critics object that utilitarianism can justify sacrificing individuals for the greater good and leaves too little room for rights, justice and personal commitments; utilitarians have answered with rule-based and other refined versions.',
+    faq: [
+      {
+        question: 'What is utilitarianism in simple terms?',
+        answer: 'The view that we should act to produce the most good, usually understood as the most happiness or well-being, for everyone affected, with each person\'s interests counting equally.',
+      },
+      {
+        question: 'What is the difference between act and rule utilitarianism?',
+        answer: 'Act utilitarianism judges each action by its own consequences. Rule utilitarianism judges actions by whether they follow rules, such as keeping promises, that would produce the best consequences if everyone followed them.',
+      },
+      {
+        question: 'What is the main objection to utilitarianism?',
+        answer: 'That it seems to permit terrible acts if they produce more total happiness, such as punishing an innocent person to stop a riot. Critics say this shows morality must include rights and justice that cannot be traded away; utilitarians reply that such acts rarely produce the best results in practice.',
+      },
+    ],
   },
   Pragmatism: {
     definition: 'Pragmatism is an American philosophy, founded in the 1870s, which holds that the meaning and truth of an idea lie in its practical consequences.',
