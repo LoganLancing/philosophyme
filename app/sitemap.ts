@@ -3,6 +3,7 @@ import { philosophers } from '@/data/philosophers';
 import { eras } from '@/data/eras';
 import { branches } from '@/data/branches';
 import { schools, schoolSlug } from '@/data/schools';
+import { getEssays } from '@/lib/essays';
 
 const BASE = 'https://philosophyme.co';
 
@@ -37,6 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const essayPages = getEssays().map((e) => ({
+    url: `${BASE}/essays/${e.id}/`,
+    priority: 0.7,
+  }));
+
   // No lastModified: stamping every page with the build date tells search engines
   // that every page changed on every deploy, so they learn to ignore the date.
   return [
@@ -45,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...eraPages,
     ...branchPages,
     ...schoolPages,
+    ...essayPages,
   ].map((entry) => ({
     ...entry,
     changeFrequency: 'monthly' as const,

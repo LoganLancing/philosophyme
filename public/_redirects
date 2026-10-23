@@ -120,3 +120,6 @@
 /philosophers/daniel-dennett-key-ideas-philosophy-legacy-explained  /philosophers/daniel-dennett/  301
 /philosophers/david-chalmers-key-ideas-philosophy-legacy-explained  /philosophers/david-chalmers/  301
 /philosophers/judith-jarvis-thomson-key-ideas-philosophy-legacy-explained  /philosophers/judith-jarvis-thomson/  301
+
+# Essays have no index page of their own; the list lives on Community
+/essays  /community/#essays  301
