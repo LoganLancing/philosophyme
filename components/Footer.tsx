@@ -65,6 +65,7 @@ export default function Footer() {
                   { label: 'Philosophers', href: '/philosophers/' },
                   { label: 'Eras', href: '/eras/' },
                   { label: 'Branches', href: '/branches/' },
+                  { label: 'Schools', href: '/schools/' },
                   { label: 'Guides', href: '/guides/' },
                   { label: 'Community', href: '/community/' },
                 ].map((link) => (

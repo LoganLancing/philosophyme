@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { philosophers } from '@/data/philosophers';
 import { eras } from '@/data/eras';
 import { branches } from '@/data/branches';
-import { schools } from '@/data/schools';
+import { schools, schoolSlug } from '@/data/schools';
 
 const BASE = 'https://philosophyme.co';
 
@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/philosophers/`, priority: 0.9 },
     { url: `${BASE}/eras/`, priority: 0.9 },
     { url: `${BASE}/branches/`, priority: 0.9 },
+    { url: `${BASE}/schools/`, priority: 0.9 },
     { url: `${BASE}/guides/`, priority: 0.9 },
     { url: `${BASE}/community/`, priority: 0.6 },
   ];
@@ -32,10 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const schoolPages = schools.map((s) => ({
-    url: `${BASE}/schools/${s.id.toLowerCase().replace(/\s+/g, '-')}/`,
+    url: `${BASE}/schools/${schoolSlug(s.id)}/`,
     priority: 0.7,
   }));
 
+  // No lastModified: stamping every page with the build date tells search engines
+  // that every page changed on every deploy, so they learn to ignore the date.
   return [
     ...staticPages,
     ...philosopherPages,
@@ -44,7 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...schoolPages,
   ].map((entry) => ({
     ...entry,
-    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
   }));
 }

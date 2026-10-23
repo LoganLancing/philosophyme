@@ -7,10 +7,13 @@ import PhilosopherAvatar from '@/components/PhilosopherAvatar';
 import PhilosopherPageClient from '@/components/PhilosopherPageClient';
 import { philosophers, getPhilosopherBySlug } from '@/data/philosophers';
 import { eras, eraGradients } from '@/data/eras';
+import { hasSchoolPage, schoolSlug } from '@/data/schools';
+import { philosopherSummaries } from '@/data/summaries';
 import type { EraId } from '@/data/types';
 import PhilosopherCard from '@/components/PhilosopherCard';
 import FreeChapterCard from '@/components/FreeChapterCard';
-import { BookOpen, Globe, Library, Quote as QuoteIcon, ShoppingBag, ExternalLink, ArrowLeft, Users } from 'lucide-react';
+import GuideCard from '@/components/GuideCard';
+import { BookOpen, Globe, Library, Quote as QuoteIcon, ArrowLeft, Users } from 'lucide-react';
 
 // Generate static params for all 108 philosophers
 export function generateStaticParams() {
@@ -48,6 +51,15 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 function formatYear(y: number): string {
   if (y === 0) return 'Present';
   return y < 0 ? `${Math.abs(y)} BCE` : `${y} CE`;
+}
+
+// Dates as they read inside a sentence: "470–399 BCE", "4 BCE – 65 CE", "1724–1804", "born 1946".
+function lifeSpan(birth: number, death: number): string {
+  if (death === 0) return `born ${birth < 0 ? `${Math.abs(birth)} BCE` : birth}`;
+  if (birth < 0 && death < 0) return `${Math.abs(birth)}–${Math.abs(death)} BCE`;
+  if (birth < 0) return `${Math.abs(birth)} BCE – ${death} CE`;
+  if (birth < 1000) return `${birth}–${death} CE`;
+  return `${birth}–${death}`;
 }
 
 export default function PhilosopherPage({ params }: { params: { slug: string } }) {
@@ -177,6 +189,17 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
 
         {/* Content */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+          {/* One-sentence answer: who they were and why they matter */}
+          {philosopherSummaries[philosopher.id] && (
+            <p
+              className="leading-relaxed anim-fiu"
+              style={{ color: '#d3c4b0', fontFamily: "var(--font-crimson), serif", fontSize: '1.15rem', lineHeight: 1.75 }}
+            >
+              <strong style={{ color: '#f4f4f4' }}>{philosopher.name}</strong> ({lifeSpan(philosopher.birth, philosopher.death)}){' '}
+              {philosopherSummaries[philosopher.id]}
+            </p>
+          )}
+
           {/* Tags */}
           <div className="flex flex-wrap gap-2 anim-fiu">
             {philosopher.branch.map((b) => (
@@ -194,21 +217,28 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
                 {b}
               </Link>
             ))}
-            {philosopher.school.map((s) => (
-              <Link
-                key={s}
-                href={`/schools/${s.toLowerCase().replace(/\s+/g, '-')}/`}
-                className="px-3 py-1 rounded-full text-xs font-medium"
-                style={{
-                  background: 'rgba(120,144,156,0.12)',
-                  color: '#78909c',
-                  border: '1px solid rgba(120,144,156,0.18)',
-                  textDecoration: 'none',
-                }}
-              >
-                {s}
-              </Link>
-            ))}
+            {philosopher.school.map((s) => {
+              const tagStyle = {
+                background: 'rgba(120,144,156,0.12)',
+                color: '#78909c',
+                border: '1px solid rgba(120,144,156,0.18)',
+                textDecoration: 'none',
+              };
+              return hasSchoolPage(s) ? (
+                <Link
+                  key={s}
+                  href={`/schools/${schoolSlug(s)}/`}
+                  className="px-3 py-1 rounded-full text-xs font-medium"
+                  style={tagStyle}
+                >
+                  {s}
+                </Link>
+              ) : (
+                <span key={s} className="px-3 py-1 rounded-full text-xs font-medium" style={tagStyle}>
+                  {s}
+                </span>
+              );
+            })}
           </div>
 
           {/* Biography */}
@@ -331,55 +361,11 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
           )}
 
           {/* Companion Guide CTA */}
-              <a
-                href="https://lancing1.gumroad.com/l/the-complete-collection"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track-location="philosopher-bottom"
-                className="block rounded-xl overflow-hidden transition-all duration-300 guide-card-hover"
-                style={{
-                  background: 'rgba(192,161,114,0.04)',
-                  border: '1px solid rgba(192,161,114,0.12)',
-                  textDecoration: 'none',
-                }}
-              >
-                <div style={{ height: 2, background: `linear-gradient(90deg, ${c1}, ${c1}40)` }} />
-                <div className="p-5 flex items-center gap-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{
-                      background: 'rgba(192,161,114,0.1)',
-                      border: '1px solid rgba(192,161,114,0.15)',
-                    }}
-                  >
-                    <BookOpen size={20} style={{ color: '#c0a172' }} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p
-                      className="text-xs uppercase tracking-widest mb-1"
-                      style={{ color: '#78909c', letterSpacing: '0.12em', fontFamily: "var(--font-crimson), serif" }}
-                    >
-                      Your Reading Path
-                    </p>
-                    <p
-                      className="text-sm font-semibold"
-                      style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}
-                    >
-                      The Companion Guide
-                    </p>
-                    <p className="text-sm mt-0.5" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif" }}>
-                      Seven eras of philosophy in one volume — reading lists, key terms, journal prompts · $19.99
-                    </p>
-                  </div>
-                  <div
-                    className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold"
-                    style={{ background: `linear-gradient(135deg, ${c1}, ${c1}cc)`, color: '#fff' }}
-                  >
-                    <ShoppingBag size={13} /> View Guide
-                    <ExternalLink size={11} style={{ opacity: 0.6 }} />
-                  </div>
-                </div>
-              </a>
+          <GuideCard
+            location="philosopher-bottom"
+            accent={c1}
+            blurb={`${philosopher.name} appears in the ${era ? era.name : 'Companion Guide'} chapter. Seven eras in one volume, with reading lists, key terms and journal prompts.`}
+          />
         </div>
       </main>
       <Footer />

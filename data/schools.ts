@@ -90,3 +90,13 @@ export const schools: School[] = [
 export function getSchool(id: string): School | undefined {
   return schools.find(s => s.id === id);
 }
+
+export function schoolSlug(id: string): string {
+  return id.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Philosopher tags can name traditions that have no page yet (e.g. "Pre-Socratic").
+// Only link the ones that do.
+export function hasSchoolPage(name: string): boolean {
+  return schools.some(s => s.id === name);
+}
