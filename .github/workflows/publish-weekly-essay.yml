@@ -1,14 +1,15 @@
 name: Publish weekly essay
 
 # Merges the week's essay pull request at 6:00am Sunday, America/Chicago.
-# GitHub schedules run in UTC, so this fires at 11, 12 and 13 UTC on Sundays
-# (6am is 11 UTC in summer and 12 UTC in winter; 13 UTC is a backup in case
-# GitHub starts late). The script checks Chicago time and publishes at most once.
+# GitHub schedules run in UTC, so this fires twice an hour from 11 to 14 UTC on
+# Sundays (6am is 11 UTC in summer and 12 UTC in winter; the later tries are
+# backups). The minutes are off the top of the hour because GitHub often skips
+# scheduled runs at :00. The script checks Chicago time and publishes at most once.
 # See .github/scripts/publish-essays.mjs for exactly what gets merged.
 
 on:
   schedule:
-    - cron: '0 11,12,13 * * 0'
+    - cron: '17,47 11-14 * * 0'
   workflow_dispatch:
     inputs:
       dry_run:
