@@ -9,12 +9,18 @@
 // Anything else is left alone. A pull request on an essay branch that fails a check
 // makes this run fail, so GitHub emails the repo owner.
 //
-// Env: GITHUB_TOKEN, GITHUB_REPOSITORY, GITHUB_EVENT_NAME, DRY_RUN ("true" = report only)
+// Env: GITHUB_TOKEN, GITHUB_REPOSITORY, GITHUB_EVENT_NAME, DRY_RUN ("true" = report only),
+//      ON_TIME ("true" = started when an essay pull request opens: wait until 6:00am
+//      Sunday Chicago time, wait for the Netlify preview, then publish)
 
 const token = process.env.GITHUB_TOKEN;
 const repo = process.env.GITHUB_REPOSITORY;
 const event = process.env.GITHUB_EVENT_NAME;
-const dryRun = process.env.DRY_RUN === 'true' || event === 'pull_request';
+const onTime = process.env.ON_TIME === 'true';
+const dryRun = process.env.DRY_RUN === 'true' || (event === 'pull_request' && !onTime);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// GitHub stops a job after 6 hours, so only wait when 6am is closer than this.
+const MAX_WAIT_MS = 5.5 * 60 * 60 * 1000;
 const API = `https://api.github.com/repos/${repo}`;
 
 async function gh(path, init = {}) {
@@ -69,12 +75,53 @@ async function problemsWith(pr, today) {
   return problems;
 }
 
+// The UTC moment of 6:00am America/Chicago on the given YYYY-MM-DD.
+function sixAmChicago(date) {
+  for (const utcHour of [10, 11, 12, 13]) {
+    const t = new Date(`${date}T${String(utcHour).padStart(2, '0')}:00:00Z`);
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hourCycle: 'h23',
+    }).formatToParts(t).map((x) => [x.type, x.value]));
+    if (`${p.year}-${p.month}-${p.day}` === date && Number(p.hour) === 6) return t;
+  }
+  throw new Error(`Could not work out 6am Chicago time on ${date}`);
+}
+
+// Started by an essay pull request opening: sleep until 6am on its Sunday, then
+// wait for the Netlify preview of its latest commit. Returns false to leave it
+// to the scheduled Sunday run instead.
+async function waitForSixAm() {
+  const ref = process.env.PR_HEAD_REF ?? '';
+  const date = ref.match(/^essay\/(\d{4}-\d{2}-\d{2})$/)?.[1];
+  if (!date) { console.log(`${ref} is not an essay branch. Nothing to do.`); return false; }
+  const wait = sixAmChicago(date) - Date.now();
+  if (wait > MAX_WAIT_MS) {
+    console.log(`6am on ${date} is ${Math.round(wait / 3600000)} hours away, too long to wait here. The scheduled Sunday run will publish it.`);
+    return false;
+  }
+  if (wait > 0) {
+    console.log(`Waiting ${Math.round(wait / 60000)} minutes until 6am Chicago time on ${date}.`);
+    await sleep(wait + 30000);
+  }
+  for (let i = 0; i < 40; i++) {
+    const pr = await gh(`/pulls/${process.env.PR_NUMBER}`);
+    if (pr.state !== 'open') { console.log(`#${pr.number} is no longer open. Nothing to do.`); return false; }
+    const status = await gh(`/commits/${pr.head.sha}/status`);
+    const preview = status.statuses.find((s) => s.context.includes('deploy-preview'));
+    if (preview && preview.state !== 'pending') return true;
+    console.log('Netlify preview not finished yet. Checking again in 30 seconds.');
+    await sleep(30000);
+  }
+  return true; // the checks below report the preview problem and fail the run
+}
+
 async function main() {
+  if (onTime && !(await waitForSixAm())) return;
   const now = chicagoNow();
   console.log(`Chicago time: ${now.weekday} ${now.date} ${now.hour}:00. Event: ${event}. Dry run: ${dryRun}.`);
   // Scheduled runs fire at several UTC hours to cover daylight saving time and
   // GitHub's occasional late starts. Only publish from 6am Sunday Chicago time on.
-  if (event === 'schedule' && (now.weekday !== 'Sun' || now.hour < 6)) {
+  if ((event === 'schedule' || onTime) && (now.weekday !== 'Sun' || now.hour < 6)) {
     console.log('Not yet 6am Sunday in Chicago. Nothing to do.');
     return;
   }
