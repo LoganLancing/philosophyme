@@ -1,0 +1,43 @@
+name: Publish essay at 6am
+
+# Starts when an essay pull request (branch essay/YYYY-MM-DD) opens or gets a new
+# commit, waits until 6:00am Sunday America/Chicago, then publishes it with the
+# same checks as the Sunday schedule in publish-weekly-essay.yml. GitHub runs its
+# own Sunday schedule hours late, so this is what makes 6am happen. A job can wait
+# at most 6 hours, so the essay pull request has to open after about 12:30am Sunday.
+# If it opens earlier, this exits and the Sunday schedule publishes it as a backup.
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+    paths:
+      - 'content/essays/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: publish-essay-on-time-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    if: startsWith(github.head_ref, 'essay/') && !github.event.pull_request.draft && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      # Run the publish script from main, never from the pull request.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Wait for 6am Sunday, then publish
+        run: node .github/scripts/publish-essays.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ON_TIME: 'true'
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_REF: ${{ github.head_ref }}
