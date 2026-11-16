@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { gumroadLink } from '@/lib/gumroad';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -353,9 +354,9 @@ export default function GuidesPage() {
                 {/* CTA */}
                 <div className="text-center">
                   <a
-                    href={collection.url}
+                    href={gumroadLink(collection.url, 'guides-hero')}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     data-track-location="guides-hero"
                     className="inline-flex items-center gap-2 px-10 py-3.5 rounded-xl text-base font-semibold transition-all duration-200"
                     style={{
@@ -456,9 +457,9 @@ export default function GuidesPage() {
                     </div>
 
                     <a
-                      href={teGuide.url}
+                      href={gumroadLink(teGuide.url, 'guides-thought-experiments')}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener"
                       data-track-location="guides-thought-experiments"
                       className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-base font-semibold transition-all duration-200"
                       style={{
@@ -657,9 +658,9 @@ export default function GuidesPage() {
                     The study plan works best with the Companion Guide: seven era chapters plus 25 thought experiments in one volume.
                   </p>
                   <a
-                    href={collection.url}
+                    href={gumroadLink(collection.url, 'guides-after-study-plan')}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     data-track-location="guides-after-study-plan"
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 btn-hover"
                     style={{
