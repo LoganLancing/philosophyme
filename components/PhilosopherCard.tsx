@@ -1,12 +1,32 @@
-'use client';
-
 import Link from 'next/link';
 import PhilosopherAvatar from './PhilosopherAvatar';
 import { eras } from '@/data/eras';
 import type { Philosopher } from '@/data/types';
 
+// Only the fields a card shows. Pages pass whole philosopher objects, but
+// typing the card this narrowly lets the index page send just these fields
+// to the browser instead of every profile in full.
+export type CardPhilosopher = Pick<
+  Philosopher,
+  'id' | 'name' | 'birth' | 'death' | 'era' | 'branch' | 'thesis' | 'initials' | 'accent'
+>;
+
+export function toCardPhilosopher(p: Philosopher): CardPhilosopher {
+  return {
+    id: p.id,
+    name: p.name,
+    birth: p.birth,
+    death: p.death,
+    era: p.era,
+    branch: p.branch,
+    thesis: p.thesis,
+    initials: p.initials,
+    accent: p.accent,
+  };
+}
+
 interface Props {
-  philosopher: Philosopher;
+  philosopher: CardPhilosopher;
 }
 
 function formatYear(y: number): string {
@@ -20,25 +40,13 @@ export default function PhilosopherCard({ philosopher }: Props) {
   return (
     <Link
       href={`/philosophers/${philosopher.id}/`}
-      className="group block rounded-2xl p-5 transition-all duration-300"
+      className="philosopher-card group block rounded-2xl p-5"
       style={{
         background: 'rgba(26,21,16,0.6)',
         border: '1px solid rgba(192,161,114,0.1)',
         borderLeft: `3px solid ${eraColor}`,
         textDecoration: 'none',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.border = `1px solid ${eraColor}50`;
-        el.style.transform = 'translateY(-3px)';
-        el.style.boxShadow = '0 12px 40px rgba(0,0,0,0.3)';
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.border = '1px solid rgba(192,161,114,0.1)';
-        el.style.borderLeft = `3px solid ${eraColor}`;
-        el.style.transform = 'translateY(0)';
-        el.style.boxShadow = 'none';
+        ['--era-color' as string]: eraColor,
       }}
     >
       <div className="flex items-start gap-4">

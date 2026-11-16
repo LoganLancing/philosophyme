@@ -23,6 +23,17 @@ export default function SiteAnalytics() {
             ? 'Thought Experiments'
             : 'Store';
         trackEvent('gumroad_click', { product_name: product, link_location: location });
+        // Tag the page the reader is on, so Gumroad's Links report shows which
+        // pages lead to sales. Runs before the browser follows the link.
+        try {
+          const u = new URL(link.href);
+          if (u.searchParams.has('utm_source') && !u.searchParams.has('utm_content')) {
+            u.searchParams.set('utm_content', window.location.pathname);
+            link.href = u.toString();
+          }
+        } catch {
+          // Leave the link as it is.
+        }
       } else if (/\/downloads\/[^/]+\.pdf$/i.test(link.pathname)) {
         trackEvent('free_download', {
           file_name: link.pathname.split('/').pop() || '',

@@ -2,15 +2,23 @@
 
 import { useState, useMemo } from 'react';
 import { Search, X, Sparkles, Filter, BookOpen, Clock, Compass } from 'lucide-react';
-import PhilosopherCard from './PhilosopherCard';
+import PhilosopherCard, { type CardPhilosopher } from './PhilosopherCard';
 import FreeChapterCard from './FreeChapterCard';
-import { philosophers } from '@/data/philosophers';
 import { eras } from '@/data/eras';
 import { branches } from '@/data/branches';
 import { schools } from '@/data/schools';
 import type { EraId } from '@/data/types';
 
-export default function PhilosophersClient() {
+// One row per philosopher: what the card shows, the schools for the filter,
+// and a lowercase search string built at build time. The full profiles stay
+// on the server, so this page no longer ships every profile to the browser.
+export type IndexPhilosopher = CardPhilosopher & { school: string[]; search: string };
+
+interface Props {
+  philosophers: IndexPhilosopher[];
+}
+
+export default function PhilosophersClient({ philosophers }: Props) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterEra, setFilterEra] = useState('all');
   const [filterBranch, setFilterBranch] = useState('all');
@@ -22,21 +30,11 @@ export default function PhilosophersClient() {
       if (filterBranch !== 'all' && !p.branch.includes(filterBranch)) return false;
       if (filterSchool !== 'all' && !p.school.includes(filterSchool)) return false;
       if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        const searchable = [
-          p.name,
-          p.thesis,
-          p.bio,
-          ...p.works,
-          ...p.arguments.map((a) => a.title + ' ' + a.desc),
-        ]
-          .join(' ')
-          .toLowerCase();
-        if (!searchable.includes(q)) return false;
+        if (!p.search.includes(searchQuery.toLowerCase())) return false;
       }
       return true;
     });
-  }, [searchQuery, filterEra, filterBranch, filterSchool]);
+  }, [philosophers, searchQuery, filterEra, filterBranch, filterSchool]);
 
   const schoolOptions = schools.filter(
     (s) => philosophers.filter((p) => p.school.includes(s.id)).length >= 2
@@ -201,7 +199,8 @@ export default function PhilosophersClient() {
               className="text-base leading-relaxed mb-5"
               style={{ color: '#b0a090', fontFamily: 'var(--font-crimson), serif' }}
             >
-              This page helps you explore {philosophers.length} philosophers across 2,600 years. Here is the easiest way to use it:
+              This page helps you explore {philosophers.length} philosophers across 2,600 years. New to philosophy? See{' '}
+              <a href="/start/" className="link-hover" style={{ color: '#c0a172' }}>where to start</a>. Here is the easiest way to use it:
             </p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div className="flex items-start gap-3">

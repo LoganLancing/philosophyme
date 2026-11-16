@@ -191,7 +191,8 @@ export default function HomePage() {
                   className="text-base leading-relaxed max-w-2xl mx-auto"
                   style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}
                 >
-                  PhilosophyMe is a free introduction to the history of philosophy. You do not need to start at the beginning. Pick a topic, a thinker, or an era and follow your interest.
+                  PhilosophyMe is a free introduction to the history of philosophy. You do not need to start at the beginning. Pick a topic, a thinker, or an era and follow your interest. If you want a plan, see{' '}
+                  <Link href="/start/" className="link-hover" style={{ color: '#c0a172' }}>how to start learning philosophy</Link>.
                 </p>
               </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

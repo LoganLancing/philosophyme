@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { BookOpen, ExternalLink } from 'lucide-react';
 import EmailCapture from './EmailCapture';
+import { gumroadLink } from '@/lib/gumroad';
 
 export default function Footer() {
   return (
@@ -62,6 +63,7 @@ export default function Footer() {
               </p>
               <div className="flex flex-col gap-2">
                 {[
+                  { label: 'Start Here', href: '/start/' },
                   { label: 'Philosophers', href: '/philosophers/' },
                   { label: 'Eras', href: '/eras/' },
                   { label: 'Branches', href: '/branches/' },
@@ -91,7 +93,7 @@ export default function Footer() {
                 {[
                   {
                     label: 'Gumroad',
-                    href: 'https://lancing1.gumroad.com/',
+                    href: gumroadLink('https://lancing1.gumroad.com/', 'footer'),
                   },
                   {
                     label: 'Buy Me a Coffee',
@@ -102,7 +104,7 @@ export default function Footer() {
                     key={link.href}
                     href={link.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-sm flex items-center gap-1 transition-colors duration-200 link-hover"
                     style={{ color: '#b0a090', textDecoration: 'none' }}
                   >

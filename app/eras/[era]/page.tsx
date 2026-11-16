@@ -12,7 +12,8 @@ import EmailCapture from '@/components/EmailCapture';
 import GuideCard from '@/components/GuideCard';
 import { eras } from '@/data/eras';
 import { eraEssays } from '@/data/eraEssays';
-import { getPhilosophersByEra } from '@/data/philosophers';
+import { getPhilosophersByEra, getPhilosopherBySlug } from '@/data/philosophers';
+import { eraGuides } from '@/data/eraGuides';
 import type { EraId } from '@/data/types';
 import { ArrowLeft } from 'lucide-react';
 
@@ -48,6 +49,7 @@ const eraIntros: Record<EraId, string> = {
 // Search titles: lead with the name people search for, keep it short enough to show in full.
 const eraTitles: Partial<Record<EraId, string>> = {
   Contemporary: 'Contemporary Philosophy: Key Ideas and Thinkers Since 1900',
+  Renaissance: 'Renaissance Philosophy: Humanism, Key Ideas and Thinkers',
 };
 
 // What each era's chapter of the Companion Guide adds (themes from the study plan on /guides/).
@@ -137,12 +139,31 @@ export default function EraPage({ params }: { params: { era: string } }) {
     ],
   };
 
+  const guide = eraGuides[eraId];
+  const guideThinkers = (guide?.thinkers ?? [])
+    .map((id) => getPhilosopherBySlug(id))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const faqLd = guide
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: guide.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+        })),
+      }
+    : null;
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
+      {faqLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      )}
       <Header />
       <main className="min-h-screen pt-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
@@ -172,6 +193,34 @@ export default function EraPage({ params }: { params: { era: string } }) {
               {seoIntro}
             </p>
           </div>
+        )}
+
+        {/* At a glance: main ideas and key thinkers */}
+        {guide && (
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-8">
+            <div className="rounded-2xl p-6" style={{ background: 'rgba(26,21,16,0.6)', border: `1px solid ${era.color}30` }}>
+              <h2 className="text-xl font-bold mb-4" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
+                {era.name} at a Glance
+              </h2>
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-2" style={{ color: era.color }}>Main ideas</h3>
+              <ul className="space-y-2 mb-5">
+                {guide.ideas.map((idea) => (
+                  <li key={idea.name} className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif" }}>
+                    <strong style={{ color: '#f4f4f4' }}>{idea.name}:</strong> {idea.text}
+                  </li>
+                ))}
+              </ul>
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-2" style={{ color: era.color }}>Key thinkers</h3>
+              <p className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif" }}>
+                {guideThinkers.map((p, i) => (
+                  <span key={p.id}>
+                    {i > 0 && ', '}
+                    <Link href={`/philosophers/${p.id}/`} className="link-hover" style={{ color: '#d3b9a3' }}>{p.name}</Link>
+                  </span>
+                ))}
+              </p>
+            </div>
+          </section>
         )}
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -231,6 +280,25 @@ export default function EraPage({ params }: { params: { era: string } }) {
                   ))}
                 </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Common questions */}
+        {guide && (
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+            <h2 className="text-2xl font-bold mb-6" style={{ color: '#f4f4f4', fontFamily: "var(--font-playfair), serif" }}>
+              Common Questions About {era.name}
+            </h2>
+            <div className="space-y-5">
+              {guide.faq.map((f) => (
+                <div key={f.question}>
+                  <h3 className="text-base font-semibold mb-1" style={{ color: '#f4f4f4' }}>{f.question}</h3>
+                  <p className="text-base leading-relaxed" style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.75 }}>
+                    {f.answer}
+                  </p>
+                </div>
+              ))}
             </div>
           </section>
         )}

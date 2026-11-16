@@ -1,153 +1,20 @@
 import type { Metadata } from 'next';
+import { gumroadLink } from '@/lib/gumroad';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EmailCapture from '@/components/EmailCapture';
 import { guides } from '@/data/guides';
 import { eras } from '@/data/eras';
+import { studyPlan } from '@/data/studyPlan';
 import { BookOpen, ShoppingBag, ExternalLink, Sparkles, Download, Library, Calendar, Globe, Lightbulb } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Companion Guide',
-  description: 'The PhilosophyMe Companion Guide covers seven eras of Western philosophy and includes a Thought Experiments collection. Built for self-study or for use alongside a Philosophy 101 course.',
+  title: 'Philosophy Study Guide: The PhilosophyMe Companion Guide',
+  description: 'A 142-page philosophy study guide covering seven eras of Western philosophy, with 25 thought experiments, reading lists and journal prompts. Free Chapter 1 and 14-week study plan.',
   alternates: { canonical: 'https://philosophyme.co/guides/' },
 };
 
-const studyPlan = [
-  {
-    weeks: '1 – 2',
-    era: 'Ancient',
-    eraTitle: 'Ancient Philosophy',
-    branch: 'Ethics',
-    branchSlug: 'ethics',
-    eraSlug: 'ancient',
-    color: '#8B6914',
-    weekOne: [
-      'Read the Ancient chapter in the Companion Guide',
-      'Explore the Ancient era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on virtue, justice, and the good life',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Plato\u2019s Apology)',
-      'Read the Ethics branch essay on the site',
-      'Work through the Ring of Gyges and Trolley Problem in the Thought Experiments guide',
-    ],
-  },
-  {
-    weeks: '3 – 4',
-    era: 'Medieval',
-    eraTitle: 'Medieval Philosophy',
-    branch: 'Metaphysics',
-    branchSlug: 'metaphysics',
-    eraSlug: 'medieval',
-    color: '#6B4226',
-    weekOne: [
-      'Read the Medieval chapter in the Companion Guide',
-      'Explore the Medieval era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on faith, reason, and the nature of existence',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Anselm\u2019s Proslogion, chapters 2\u20134)',
-      'Read the Metaphysics branch essay on the site',
-      'Work through the Ship of Theseus in the Thought Experiments guide',
-    ],
-  },
-  {
-    weeks: '5 – 6',
-    era: 'Renaissance',
-    eraTitle: 'Renaissance Philosophy',
-    branch: 'Political Philosophy',
-    branchSlug: 'political-philosophy',
-    eraSlug: 'renaissance',
-    color: '#8B4513',
-    weekOne: [
-      'Read the Renaissance chapter in the Companion Guide',
-      'Explore the Renaissance era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on power, humanism, and the individual',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Machiavelli\u2019s The Prince, chapters 15\u201318)',
-      'Read the Political Philosophy branch essay on the site',
-      'Work through the Veil of Ignorance in the Thought Experiments guide',
-    ],
-  },
-  {
-    weeks: '7 – 8',
-    era: 'Early Modern',
-    eraTitle: 'Early Modern Philosophy',
-    branch: 'Epistemology',
-    branchSlug: 'epistemology',
-    eraSlug: 'early-modern',
-    color: '#2C3E6B',
-    weekOne: [
-      'Read the Early Modern chapter in the Companion Guide',
-      'Explore the Early Modern era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on doubt, knowledge, and the mind-body problem',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Descartes\u2019 Meditations I\u2013II)',
-      'Read the Epistemology branch essay on the site',
-      'Work through Plato\u2019s Cave and the Brain in a Vat in the Thought Experiments guide',
-    ],
-  },
-  {
-    weeks: '9 – 10',
-    era: 'Enlightenment',
-    eraTitle: 'Enlightenment Philosophy',
-    branch: 'Political Philosophy',
-    branchSlug: 'political-philosophy',
-    eraSlug: 'enlightenment',
-    color: '#2E5A4C',
-    weekOne: [
-      'Read the Enlightenment chapter in the Companion Guide',
-      'Explore the Enlightenment era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on knowledge, reason, and human rights',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Kant\u2019s Groundwork, Section I)',
-      'Read the Political Philosophy branch essay on the site',
-      'Work through the Social Contract and State of Nature in the Thought Experiments guide',
-    ],
-  },
-  {
-    weeks: '11 – 12',
-    era: '19th Century',
-    eraTitle: '19th-Century Philosophy',
-    branch: 'Logic',
-    branchSlug: 'logic',
-    eraSlug: '19th-century',
-    color: '#4A2545',
-    weekOne: [
-      'Read the 19th Century chapter in the Companion Guide',
-      'Explore the 19th Century era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on ideology, crisis, and the search for meaning',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Nietzsche\u2019s On the Genealogy of Morals, First Essay)',
-      'Read the Logic branch essay on the site \u2014 especially Anatomy of an Argument and Validity, Soundness, and Strength',
-      'Work through the Chinese Room in the Thought Experiments guide',
-    ],
-  },
-  {
-    weeks: '13 – 14',
-    era: 'Contemporary',
-    eraTitle: 'Contemporary Philosophy',
-    branch: 'Aesthetics',
-    branchSlug: 'aesthetics',
-    eraSlug: 'contemporary',
-    color: '#1a5276',
-    weekOne: [
-      'Read the Contemporary chapter in the Companion Guide',
-      'Explore the Contemporary era page and philosopher profiles on the site',
-      'Complete the chapter\u2019s journal prompts on freedom, justice, and the limits of knowledge',
-    ],
-    weekTwo: [
-      'Read a short primary text (start with Sartre\u2019s Existentialism Is a Humanism)',
-      'Read the Aesthetics branch essay on the site',
-      'Work through the Experience Machine and Mary\u2019s Room in the Thought Experiments guide',
-    ],
-  },
-];
 
 export default function GuidesPage() {
   const teGuide = guides.find((g) => g.id === 'thought-experiments');
@@ -353,9 +220,9 @@ export default function GuidesPage() {
                 {/* CTA */}
                 <div className="text-center">
                   <a
-                    href={collection.url}
+                    href={gumroadLink(collection.url, 'guides-hero')}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     data-track-location="guides-hero"
                     className="inline-flex items-center gap-2 px-10 py-3.5 rounded-xl text-base font-semibold transition-all duration-200"
                     style={{
@@ -364,13 +231,41 @@ export default function GuidesPage() {
                       textDecoration: 'none',
                     }}
                   >
-                    <ShoppingBag size={18} /> Get the Companion Guide &mdash; $19.99
+                    <ShoppingBag size={18} /> Get the Companion Guide for $19.99
                     <ExternalLink size={14} style={{ opacity: 0.6 }} />
                   </a>
                 </div>
                 </div>
               </div>
           )}
+
+          {/* Look inside: real pages from Chapter 1 */}
+          <section className="mb-12" aria-labelledby="look-inside">
+            <h2 id="look-inside" className="text-2xl font-bold text-center mb-2" style={{ color: '#f4f4f4', fontFamily: 'var(--font-playfair), serif' }}>
+              Look Inside
+            </h2>
+            <p className="text-base text-center max-w-2xl mx-auto mb-6" style={{ color: '#8fa3b0', fontFamily: 'var(--font-crimson), serif' }}>
+              Three pages from Chapter 1. Every era chapter follows the same pattern: the question, the story, then reading recommendations, journal prompts and key terms.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { src: '/images/guide-preview-chapter-opening.webp', alt: 'Chapter 1 opening page of the PhilosophyMe Companion Guide: Ancient, The Birth of Reason', caption: 'Each chapter opens with the question its era asked' },
+                { src: '/images/guide-preview-the-story.webp', alt: 'A page from The Story section of Chapter 1, covering Thales and Socrates', caption: 'The story of the era, told in plain language' },
+                { src: '/images/guide-preview-reading-and-prompts.webp', alt: 'The Going Deeper page of Chapter 1 with reading recommendations and journal prompts', caption: 'Reading recommendations and journal prompts' },
+              ].map((img) => (
+                <figure key={img.src} className="rounded-xl overflow-hidden" style={{ border: '1px solid rgba(192,161,114,0.15)', background: '#0d0b08' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img.src} alt={img.alt} width={720} height={932} loading="lazy" className="w-full h-auto block" />
+                  <figcaption className="text-sm p-3" style={{ color: '#b0a090', fontFamily: 'var(--font-crimson), serif' }}>
+                    {img.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <p className="text-sm text-center mt-4" style={{ color: '#8fa3b0' }}>
+              Want the whole chapter? <a href="#free-chapter" className="link-hover" style={{ color: '#c0a172' }}>Get Chapter 1 free</a>.
+            </p>
+          </section>
 
           {/* Thought Experiments Card */}
           {teGuide && (
@@ -440,7 +335,7 @@ export default function GuidesPage() {
                       style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.55 }}
                     >
                       {[
-                        '25 thought experiments — each with the scenario, major responses, and a YOUR TURN prompt',
+                        '25 thought experiments, each with the scenario, major responses, and a YOUR TURN prompt',
                         "Covers 2,600 years of philosophy, from Plato's Cave to the Simulation Argument",
                         'Living Questions that connect each experiment to life today',
                         'Glossary, reading list, and journal prompts',
@@ -456,9 +351,9 @@ export default function GuidesPage() {
                     </div>
 
                     <a
-                      href={teGuide.url}
+                      href={gumroadLink(teGuide.url, 'guides-thought-experiments')}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener"
                       data-track-location="guides-thought-experiments"
                       className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-base font-semibold transition-all duration-200"
                       style={{
@@ -467,7 +362,7 @@ export default function GuidesPage() {
                         textDecoration: 'none',
                       }}
                     >
-                      <ShoppingBag size={15} /> Buy Standalone — $4.99
+                      <ShoppingBag size={15} /> Buy Standalone: $4.99
                       <ExternalLink size={12} style={{ opacity: 0.6 }} />
                     </a>
                   </div>
@@ -657,9 +552,9 @@ export default function GuidesPage() {
                     The study plan works best with the Companion Guide: seven era chapters plus 25 thought experiments in one volume.
                   </p>
                   <a
-                    href={collection.url}
+                    href={gumroadLink(collection.url, 'guides-after-study-plan')}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     data-track-location="guides-after-study-plan"
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 btn-hover"
                     style={{
@@ -668,7 +563,7 @@ export default function GuidesPage() {
                       textDecoration: 'none',
                     }}
                   >
-                    <ShoppingBag size={15} /> Get the Companion Guide — $19.99
+                    <ShoppingBag size={15} /> Get the Companion Guide for $19.99
                     <ExternalLink size={12} style={{ opacity: 0.6 }} />
                   </a>
                 </div>
@@ -677,7 +572,7 @@ export default function GuidesPage() {
           </div>
 
           {/* Email capture — free chapter CTA */}
-          <div className="max-w-2xl mx-auto mt-12">
+          <div id="free-chapter" className="max-w-2xl mx-auto mt-12" style={{ scrollMarginTop: '6rem' }}>
             <div
               className="rounded-2xl p-6 sm:p-8 text-center"
               style={{

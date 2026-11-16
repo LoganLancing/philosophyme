@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { BookOpen, ShoppingBag, ExternalLink, ArrowRight } from 'lucide-react';
 import { guides } from '@/data/guides';
+import { gumroadLink } from '@/lib/gumroad';
 
 const companion = guides.find((g) => g.id === 'complete-collection')!;
 
@@ -57,9 +58,9 @@ export default function GuideCard({
         </div>
         <div className="flex sm:flex-col items-center sm:items-end gap-3 flex-shrink-0">
           <a
-            href={companion.url}
+            href={gumroadLink(companion.url, location)}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold"
             style={{ background: `linear-gradient(135deg, ${accent}, ${accent}cc)`, color: '#fff', textDecoration: 'none' }}
           >

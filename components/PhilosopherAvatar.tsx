@@ -1,8 +1,10 @@
 import type { Philosopher, EraId } from '@/data/types';
+
+type AvatarPhilosopher = Pick<Philosopher, 'era' | 'initials'>;
 import { eraGradients } from '@/data/eras';
 
 interface Props {
-  philosopher: Philosopher;
+  philosopher: AvatarPhilosopher;
   size?: number;
 }
 
