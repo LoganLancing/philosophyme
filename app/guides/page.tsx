@@ -231,7 +231,7 @@ export default function GuidesPage() {
                       textDecoration: 'none',
                     }}
                   >
-                    <ShoppingBag size={18} /> Get the Companion Guide &mdash; $19.99
+                    <ShoppingBag size={18} /> Get the Companion Guide for $19.99
                     <ExternalLink size={14} style={{ opacity: 0.6 }} />
                   </a>
                 </div>
@@ -335,7 +335,7 @@ export default function GuidesPage() {
                       style={{ color: '#b0a090', fontFamily: "var(--font-crimson), serif", lineHeight: 1.55 }}
                     >
                       {[
-                        '25 thought experiments — each with the scenario, major responses, and a YOUR TURN prompt',
+                        '25 thought experiments, each with the scenario, major responses, and a YOUR TURN prompt',
                         "Covers 2,600 years of philosophy, from Plato's Cave to the Simulation Argument",
                         'Living Questions that connect each experiment to life today',
                         'Glossary, reading list, and journal prompts',
@@ -362,7 +362,7 @@ export default function GuidesPage() {
                         textDecoration: 'none',
                       }}
                     >
-                      <ShoppingBag size={15} /> Buy Standalone — $4.99
+                      <ShoppingBag size={15} /> Buy Standalone: $4.99
                       <ExternalLink size={12} style={{ opacity: 0.6 }} />
                     </a>
                   </div>
@@ -563,7 +563,7 @@ export default function GuidesPage() {
                       textDecoration: 'none',
                     }}
                   >
-                    <ShoppingBag size={15} /> Get the Companion Guide — $19.99
+                    <ShoppingBag size={15} /> Get the Companion Guide for $19.99
                     <ExternalLink size={12} style={{ opacity: 0.6 }} />
                   </a>
                 </div>
