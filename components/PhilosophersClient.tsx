@@ -199,7 +199,8 @@ export default function PhilosophersClient({ philosophers }: Props) {
               className="text-base leading-relaxed mb-5"
               style={{ color: '#b0a090', fontFamily: 'var(--font-crimson), serif' }}
             >
-              This page helps you explore {philosophers.length} philosophers across 2,600 years. Here is the easiest way to use it:
+              This page helps you explore {philosophers.length} philosophers across 2,600 years. New to philosophy? See{' '}
+              <a href="/start/" className="link-hover" style={{ color: '#c0a172' }}>where to start</a>. Here is the easiest way to use it:
             </p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div className="flex items-start gap-3">

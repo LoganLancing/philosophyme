@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/branches/`, priority: 0.9 },
     { url: `${BASE}/schools/`, priority: 0.9 },
     { url: `${BASE}/guides/`, priority: 0.9 },
+    { url: `${BASE}/start/`, priority: 0.9 },
     { url: `${BASE}/community/`, priority: 0.6 },
   ];
 

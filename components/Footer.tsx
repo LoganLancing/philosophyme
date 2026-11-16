@@ -63,6 +63,7 @@ export default function Footer() {
               </p>
               <div className="flex flex-col gap-2">
                 {[
+                  { label: 'Start Here', href: '/start/' },
                   { label: 'Philosophers', href: '/philosophers/' },
                   { label: 'Eras', href: '/eras/' },
                   { label: 'Branches', href: '/branches/' },
