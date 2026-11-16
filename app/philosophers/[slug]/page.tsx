@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PhilosopherAvatar from '@/components/PhilosopherAvatar';
-import PhilosopherPageClient from '@/components/PhilosopherPageClient';
+import PhilosopherArguments from '@/components/PhilosopherArguments';
 import { philosophers, getPhilosopherBySlug } from '@/data/philosophers';
 import { eras, eraGradients } from '@/data/eras';
 import { hasSchoolPage, schoolSlug } from '@/data/schools';
@@ -327,8 +327,8 @@ export default function PhilosopherPage({ params }: { params: { slug: string } }
             }
           />
 
-          {/* Key Arguments + FAQ — uses client component for expand/collapse */}
-            <PhilosopherPageClient arguments={philosopher.arguments} faq={philosopher.faq} />
+          {/* Key Arguments + FAQ: folded with <details>, text is in the HTML */}
+            <PhilosopherArguments arguments={philosopher.arguments} faq={philosopher.faq} />
 
           {/* Lasting Influence */}
             <section

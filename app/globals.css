@@ -314,3 +314,67 @@ input::placeholder {
 [data-essay-section] {
   scroll-margin-top: 6rem;
 }
+
+/* ============================================
+   FOLDED SECTIONS (<details>)
+   Text stays in the HTML for search engines,
+   folded until the reader opens it.
+   ============================================ */
+
+.fold > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.fold > summary::-webkit-details-marker {
+  display: none;
+}
+.fold-chevron {
+  transition: transform 0.3s;
+}
+.fold[open] > summary .fold-chevron {
+  transform: rotate(180deg);
+}
+.fold-open {
+  display: none;
+}
+.fold[open] > summary .fold-open {
+  display: inline;
+}
+.fold[open] > summary .fold-closed {
+  display: none;
+}
+.fold[open] > summary + * {
+  animation: fadeIn 0.3s ease;
+}
+
+/* "Philosophy 101" button */
+.fold-btn {
+  background: rgba(192, 161, 114, 0.08);
+  color: #c0a172;
+  border: 1px solid rgba(192, 161, 114, 0.2);
+  transition: background 0.2s ease;
+}
+.fold-btn:hover,
+.fold[open] > .fold-btn {
+  background: rgba(192, 161, 114, 0.18);
+}
+
+/* FAQ question row */
+.faq-q {
+  transition: background 0.2s ease;
+}
+.faq-q:hover,
+.fold[open] > .faq-q {
+  background: rgba(192, 161, 114, 0.08);
+}
+
+/* Philosopher card hover (CSS only, so the card needs no JavaScript) */
+.philosopher-card {
+  transition: all 0.3s ease;
+}
+.philosopher-card:hover {
+  border-color: color-mix(in srgb, var(--era-color) 31%, transparent) !important;
+  border-left-color: var(--era-color) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
